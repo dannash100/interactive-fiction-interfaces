@@ -20,10 +20,23 @@
   },
   "homepage": "https://github.com/dev-academy-challenges/boilerplate-knex#readme",
   "dependencies": {
+    "chalk": "^2.4.1",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "command-line-usage": "^5.0.5",
+    "configstore": "^3.1.2",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
+    "figlet": "^1.2.0",
+    "inquirer": "^6.0.0",
     "knex": "^0.14.2",
-    "sqlite3": "^3.1.13"
+    "load-json-file": "^5.0.0",
+    "lodash": "^4.17.10",
+    "minimist": "^1.2.0",
+    "prompt": "^1.0.0",
+    "prompt-improved": "^0.1.10",
+    "sqlite3": "^3.1.13",
+    "write-json-file": "^2.3.0"
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",

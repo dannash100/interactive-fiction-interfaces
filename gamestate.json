@@ -1,0 +1,32 @@
+{
+	"players": [
+		{
+			"id": 0,
+			"name": "test100",
+			"current scene": 0,
+			"visited scenes": [],
+			"progress": {
+				"is alive": true,
+				"is thirsty": false
+			},
+			"inventory": {
+				"key": "its a keyz",
+				"dog head": "picked this up at the accident"
+			}
+		},
+		{
+			"id": 1,
+			"name": "test100",
+			"current scene": 0,
+			"visited scenes": [],
+			"progress": {
+				"is alive": true,
+				"is thirsty": false
+			},
+			"inventory": {
+				"key": "its a keyz",
+				"dog head": "picked this up at the accident"
+			}
+		}
+	]
+}
