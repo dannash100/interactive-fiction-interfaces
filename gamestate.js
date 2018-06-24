@@ -1,44 +1,60 @@
-const fs = require('fs')
 const writeJsonFile = require('write-json-file')
 const loadJsonFile = require('load-json-file')
 
-let currentPlayer = {
-  "id" : 0,
-  "name": "test100",
-  "current scene": 0,
-  "visited scenes": [],
-  "progress": {
-    "is alive" : true,
-    "is thirsty": false
-  },
-  "inventory": {
-    "key" : "its a keyz",
-    "dog head": "picked this up at the accident"
-    
+
+let currentPlayer = {}
+
+asyncTestCall()
+
+async function asyncTestCall() {
+  await newPlayer('dan')
+  console.log(currentPlayer)
+}
+
+function newPlayer (name) {
+   return new Promise(resolve => {
+    let newPlayer = {
+      "name": name,
+      "current scene": 0,
+      "visited scenes": [0],
+      "progress": {
+        "is alive" : true,
+      },
+      "inventory": {
+      }
+    }
+    loadJsonFile('gamestate.json').then(data => {
+      data.players.push(newPlayer)
+      currentPlayer = newPlayer
+        writeJsonFile('gamestate.json', data).then(() => {
+          resolve()
+        }) 
+      })  
+    })
   }
-
-}
- function newPlayer () {
-
-}
-
-async function loadPlayer (id) { 
+  
+async function loadPlayer (name) { 
   loadJsonFile('gamestate.json').then(data => {
-   currentPlayer = data.Player.find(x => x.id == id)
+   currentPlayer = data.Player.find(x => x.name == name)
   })
 }
 
-async function savePlayer(id) {
+async function savePlayer(name) {
   loadJsonFile('gamestate.json').then(data => {
-    let playerData = data.players.find(x => x.id == id)
-    let updatedData = Object.assign(playerData, currentPlayer)
-      writeJsonFile('gamestate.json', data).then(() => {
-        console.log('done') 
+    let pulledData = data.players.find(x => x.name == name)
+    Object.assign(pulledData, currentPlayer)
+      writeJsonFile('gamestate.json', data).then(() => { 
   })
  
 })
 }
 
 
+//// promise rejections
 
-savePlayer(0)
+module.exports = {
+  currentPlayer,
+  savePlayer,
+  loadPlayer,
+  newPlayer
+}

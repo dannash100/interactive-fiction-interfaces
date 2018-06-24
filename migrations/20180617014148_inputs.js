@@ -5,6 +5,7 @@ return knex.schema.createTable('inputs', (table) =>{
   table.string('scene')
   table.string('input')
   table.string('reply')
+  table.string('type')
 })
 };
 
