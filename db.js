@@ -36,9 +36,6 @@ function getScene(id) {
     .select()
 }
 
-function getInventory() {
-
-}
 
 
 

@@ -19,13 +19,8 @@ const lookAt = ["look", "look at", "look to"]
       lookIn = ["look in", "look into", "look inside"]
       push = ["push", "move"]
       pull = ["pull"]
-      take = ["pick up" , "pickup" , "take", ""]
-      goNorth = ["N", "n", "go north", "walk north"]
+      take = ["pick up" , "pickup" , "take"]
 
-      
-
-
-      
       
 
        

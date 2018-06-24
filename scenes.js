@@ -14,15 +14,6 @@ function setUpScene(scene) {
 
 }
 
-function promptMovement(scene) {
-
-}
-
-function promptLook(scene) {
-
-
-}
-
 
 function playScene(scene) {
 
