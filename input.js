@@ -54,21 +54,21 @@ function processInput(words, scene) {
 
 
 
+
 function checkMove(words) {
-
     let found = false
-
+    words = words.toUpperCase()
     for (let i = 0; i < commands.north.length; i++) {
-        if (words.toUpperCase() === commands.north[i].toUpperCase()) console.log("go north"), found = true
-        if (words.toUpperCase() === commands.east[i].toUpperCase()) console.log("go east"), found = true
-        if (words.toUpperCase() === commands.south[i].toUpperCase()) console.log("go south"), found = true
-        if (words.toUpperCase() === commands.west[i].toUpperCase()) console.log("go west"), found = true
+        if (words === commands.north[i].toUpperCase()) console.log("go north"), found = true
+        if (words === commands.east[i].toUpperCase()) console.log("go east"), found = true
+        if (words === commands.south[i].toUpperCase()) console.log("go south"), found = true
+        if (words === commands.west[i].toUpperCase()) console.log("go west"), found = true
     }
     for (let i = 0; i < commands.northwest.length; i++) {
-        if (words.toUpperCase() === commands.northwest[i].toUpperCase()) console.log("go northwest"), found = true
-        if (words.toUpperCase() === commands.northeast[i].toUpperCase()) console.log("go northeast"), found = true
-        if (words.toUpperCase() === commands.southwest[i].toUpperCase()) console.log("go southwest"), found = true
-        if (words.toUpperCase() === commands.southeast[i].toUpperCase()) console.log("go southeast"), found = true
+        if (words === commands.northwest[i].toUpperCase()) console.log("go northwest"), found = true
+        if (words === commands.northeast[i].toUpperCase()) console.log("go northeast"), found = true
+        if (words === commands.southwest[i].toUpperCase()) console.log("go southwest"), found = true
+        if (words === commands.southeast[i].toUpperCase()) console.log("go southeast"), found = true
     }
     return found
 }
@@ -76,17 +76,18 @@ function checkMove(words) {
 
 function checkGlobal(words) {
     let found = false
+    words = words.toUpperCase()
     commands.inventory.forEach(command => {
-        if (words.toUpperCase() === command.toUpperCase()) console.log("inventory"), found = true
+        if (words === command.toUpperCase()) console.log("inventory"), found = true
     })
     commands.quit.forEach(command => {
-        if (words.toUpperCase() === command.toUpperCase()) console.log("quit"), found = true
+        if (words === command.toUpperCase()) console.log("quit"), found = true
     })
     commands.save.forEach(command => {
-        if (words.toUpperCase() === command.toUpperCase()) console.log("save"), found = true
+        if (words === command.toUpperCase()) console.log("save"), found = true
     })
     commands.load.forEach(command => {
-        if (words.toUpperCase() === command.toUpperCase()) console.log("load"), found = true
+        if (words === command.toUpperCase()) console.log("load"), found = true
     })
     return found
 }
@@ -96,14 +97,15 @@ function checkGlobal(words) {
 
 
 function checkVerbs(words) {
+    words = words.toUpperCase()
     for (let i = 0; i < commands.lookIn.length; i++) {
-        if (words.toUpperCase().includes(commands.lookIn[i].toUpperCase())) {
+        if (words.includes(commands.lookIn[i].toUpperCase())) {
             noun = words.toUpperCase().replace(commands.lookIn[i].toUpperCase(), "").trim()
             return ["lookIn", noun]
         }
     }
     for (let i = 0; i < commands.lookAt.length; i++) {
-        if (words.toUpperCase().includes(commands.lookAt[i].toUpperCase())) {
+        if (words.includes(commands.lookAt[i].toUpperCase())) {
             noun = words.toUpperCase().replace(commands.lookAt[i].toUpperCase(), "").trim()
             return ["lookAt", noun]
         }
