@@ -1,16 +1,9 @@
 const inquirer = require('inquirer');
 const db = require('./db')
-const fs = require('fs')
-const path = require('path')
-const readline = require('readline')
 const chalk = require('chalk');
 // const scene = require('./scene')
 
-/*Strech Goals
-  to have somekind of relationship to browser- written into story- you transcend or somthing and end up being displayed in browser like
-  kings quest.
 
-*/
 
 function mainMenu() {
   
@@ -36,7 +29,7 @@ function displayQuestion(id, scene) {
 // displays a group of messages by id's -- displays with ... in-between
 
 
-function printLinesText() {
+function printText() {
   var ids = Object.values(arguments)
   db.getMessages(ids).then(text => {
     var messages = []

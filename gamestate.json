@@ -13,6 +13,50 @@
 				"key": "its a keyz",
 				"dog head": "picked this up at the accident"
 			}
+		},
+		{
+			"name": "dan",
+			"current scene": 0,
+			"visited scenes": [
+				0
+			],
+			"progress": {
+				"is alive": true
+			},
+			"inventory": {}
+		},
+		{
+			"name": "dan",
+			"current scene": 0,
+			"visited scenes": [
+				0
+			],
+			"progress": {
+				"is alive": true
+			},
+			"inventory": {}
+		},
+		{
+			"name": "dan",
+			"current scene": 0,
+			"visited scenes": [
+				0
+			],
+			"progress": {
+				"is alive": true
+			},
+			"inventory": {}
+		},
+		{
+			"name": "dan",
+			"current scene": 0,
+			"visited scenes": [
+				0
+			],
+			"progress": {
+				"is alive": true
+			},
+			"inventory": {}
 		}
 	]
 }

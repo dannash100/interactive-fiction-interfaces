@@ -35,8 +35,6 @@ function printMap(scene, title) {
 
 }
 
-
-
 function printInventory() {
   let sections = [{
       header: 'Inventory',
@@ -58,7 +56,7 @@ function printInventory() {
   ]
   let items = Object.keys(data.currentPlayer.inventory)
   descriptions = Object.values(data.currentPlayer.inventory)
-  if (items.length) {
+  if (!items.length) {
     sections[1].content.data.push({
       col: `{bold.keyword("brown") Your pack contains no items. }`,
       col2: ""
@@ -74,8 +72,6 @@ function printInventory() {
   usage = commandLineUsage(sections)
   console.log(usage)
 }
-
-
 
 function titleFont(text) {
   console.log(chalk.red(

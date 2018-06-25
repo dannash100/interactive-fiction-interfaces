@@ -2,9 +2,18 @@ const writeJsonFile = require('write-json-file')
 const loadJsonFile = require('load-json-file')
 
 
-let currentPlayer = {}
+let currentPlayer = {
+  "name": "test",
+  "current scene": 0,
+  "visited scenes": [0],
+  "progress": {
+    "is alive" : true,
+  },
+  "inventory": {
+  }
+}
 
-asyncTestCall()
+
 
 async function asyncTestCall() {
   await newPlayer('dan')
@@ -33,13 +42,13 @@ function newPlayer (name) {
     })
   }
   
-async function loadPlayer (name) { 
+function loadPlayer (name) { 
   loadJsonFile('gamestate.json').then(data => {
    currentPlayer = data.Player.find(x => x.name == name)
   })
 }
 
-async function savePlayer(name) {
+function savePlayer(name) {
   loadJsonFile('gamestate.json').then(data => {
     let pulledData = data.players.find(x => x.name == name)
     Object.assign(pulledData, currentPlayer)
