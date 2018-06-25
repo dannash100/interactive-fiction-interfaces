@@ -1,9 +1,7 @@
 const data = require('./gamestate')
 
-/*Commands  
-- check global commands 
-- get text find what kind of action it is
-- remove from string 
+/*to do 
+
 - analyze remaining words
 - each item can have an alias in database- SO it can be bird - or red bird and get same action
 - ultimatly it will filter through a database using where of scene and action type. 
@@ -15,7 +13,7 @@ const data = require('./gamestate')
 
 const commands = {
     lookAt: ["look at", "look to", "look"],
-    lookIn: ["look in", "look into", "look inside"],
+    lookIn: ["look inside", "look into", "look in"],
     push: ["push", "move"],
     pull: ["pull"],
     take: ["pick up", "pickup", "take", "get"],
@@ -49,6 +47,11 @@ const commands = {
 //     if (!checkMove(word)) console.log
 
 // }
+
+function processInput(words, scene) {
+
+}
+
 
 
 function checkMove(words) {
@@ -89,30 +92,34 @@ function checkGlobal(words) {
 }
 
 
-console.log(checkVerbs("look at dog"))
+
 
 
 function checkVerbs(words) {
+    for (let i = 0; i < commands.lookIn.length; i++) {
+        if (words.toUpperCase().includes(commands.lookIn[i].toUpperCase())) {
+            noun = words.toUpperCase().replace(commands.lookIn[i].toUpperCase(), "").trim()
+            return ["lookIn", noun]
+        }
+    }
     for (let i = 0; i < commands.lookAt.length; i++) {
-        if(words.includes(commands.lookAt[i])) {
-            noun = words.replace(commands.lookAt[i], "").trim()
+        if (words.toUpperCase().includes(commands.lookAt[i].toUpperCase())) {
+            noun = words.toUpperCase().replace(commands.lookAt[i].toUpperCase(), "").trim()
             return ["lookAt", noun]
         }
     }
- return false
+    
+    return false
 }
 
+console.log(checkVerbs("LoOk dogman"))
+console.log(checkVerbs("look Inside red cup"))
 
-//movement, pickup object anything that needs a scene change or refresh- including look
-
-
-function checkAction() {
+function filterOther(words, scene) {
 
 }
 
-//local inconsiquential activities with small responses
+function filterNoun(noun, type, scene) {
 
-
-function checkLocal(words, scene) {
 
 }
