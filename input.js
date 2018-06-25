@@ -31,10 +31,10 @@ const commands = {
     northeast: ["ne", "northeast", "go northeast", "move northeast", "walk northeast", "north-east", "go north-east", "move north-east", "walk north-east"],
     southwest: ["sw", "southwest", "go southwest", "move southwest", "walk southwest", "south-west", "go south-west", "move south-west", "walk south-west"],
     southeast: ["se", "southeast", "go southeast", "move southeast", "walk southeast", "south-east", "go south-east", "move south-east", "walk south-east"],
-    inventory: ["inventory", "pack", "look at inventory", "check inventory", "open inventory"],
+    inventory: ["inventory", "pack", "look at inventory", "check inventory", "open inventory", "look in pack", "look in inventory"],
     quit: ["quit", "exit game", "quit game"],
-    save: ["save", "save progress"],
-    load: ["load", "restore"]
+    save: ["save", "save progress", "save game"],
+    load: ["load", "load game", "restore"]
 
 }
 
