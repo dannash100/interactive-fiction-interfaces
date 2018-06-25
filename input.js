@@ -14,7 +14,7 @@ const data = require('./gamestate')
 
 
 const commands = {
-    lookAt: ["look", "look at", "look to"],
+    lookAt: ["look at", "look to", "look"],
     lookIn: ["look in", "look into", "look inside"],
     push: ["push", "move"],
     pull: ["pull"],
@@ -34,21 +34,21 @@ const commands = {
     southwest: ["sw", "southwest", "go southwest", "move southwest", "walk southwest", "south-west", "go south-west", "move south-west", "walk south-west"],
     southeast: ["se", "southeast", "go southeast", "move southeast", "walk southeast", "south-east", "go south-east", "move south-east", "walk south-east"],
     inventory: ["inventory", "pack", "look at inventory", "check inventory", "open inventory"],
-
-
+    quit: ["quit", "exit game", "quit game"],
+    save: ["save", "save progress"],
+    load: ["load", "restore"]
 
 }
 
 
-processInput("south")
-processInput("dog")
 
 
-function processInput(word) {
 
-    if (checkMove(word)) console.log
-    
-}
+// function processInput(word) {
+
+//     if (!checkMove(word)) console.log
+
+// }
 
 
 function checkMove(words) {
@@ -56,25 +56,52 @@ function checkMove(words) {
     let found = false
 
     for (let i = 0; i < commands.north.length; i++) {
-        if (words.toUpperCase() == commands.north[i].toUpperCase()) console.log("go north"), found = true
-        if (words.toUpperCase() == commands.east[i].toUpperCase()) console.log("go east"), found = true
-        if (words.toUpperCase() == commands.south[i].toUpperCase()) console.log("go south"), found = true 
-        if (words.toUpperCase() == commands.west[i].toUpperCase()) console.log("go west"), found = true
+        if (words.toUpperCase() === commands.north[i].toUpperCase()) console.log("go north"), found = true
+        if (words.toUpperCase() === commands.east[i].toUpperCase()) console.log("go east"), found = true
+        if (words.toUpperCase() === commands.south[i].toUpperCase()) console.log("go south"), found = true
+        if (words.toUpperCase() === commands.west[i].toUpperCase()) console.log("go west"), found = true
     }
     for (let i = 0; i < commands.northwest.length; i++) {
-        if (words.toUpperCase() == commands.northwest[i].toUpperCase()) console.log("go northwest"), found = true
-        if (words.toUpperCase() == commands.northeast[i].toUpperCase()) console.log("go northeast"), found = true
-        if (words.toUpperCase() == commands.southwest[i].toUpperCase()) console.log("go southwest"), found = true
-        if (words.toUpperCase() == commands.southeast[i].toUpperCase()) console.log("go southeast"), found = true
-        }
-
+        if (words.toUpperCase() === commands.northwest[i].toUpperCase()) console.log("go northwest"), found = true
+        if (words.toUpperCase() === commands.northeast[i].toUpperCase()) console.log("go northeast"), found = true
+        if (words.toUpperCase() === commands.southwest[i].toUpperCase()) console.log("go southwest"), found = true
+        if (words.toUpperCase() === commands.southeast[i].toUpperCase()) console.log("go southeast"), found = true
+    }
     return found
 }
 
 
 function checkGlobal(words) {
-
+    let found = false
+    commands.inventory.forEach(command => {
+        if (words.toUpperCase() === command.toUpperCase()) console.log("inventory"), found = true
+    })
+    commands.quit.forEach(command => {
+        if (words.toUpperCase() === command.toUpperCase()) console.log("quit"), found = true
+    })
+    commands.save.forEach(command => {
+        if (words.toUpperCase() === command.toUpperCase()) console.log("save"), found = true
+    })
+    commands.load.forEach(command => {
+        if (words.toUpperCase() === command.toUpperCase()) console.log("load"), found = true
+    })
+    return found
 }
+
+
+console.log(checkVerbs("look at dog"))
+
+
+function checkVerbs(words) {
+    for (let i = 0; i < commands.lookAt.length; i++) {
+        if(words.includes(commands.lookAt[i])) {
+            noun = words.replace(commands.lookAt[i], "").trim()
+            return ["lookAt", noun]
+        }
+    }
+ return false
+}
+
 
 //movement, pickup object anything that needs a scene change or refresh- including look
 
