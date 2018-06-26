@@ -7,10 +7,9 @@ let currentPlayer = {
   "current scene": 0,
   "visited scenes": [0],
   "progress": {
-    "is alive" : true,
+    "is alive": true,
   },
-  "inventory": {
-  }
+  "inventory": {}
 }
 
 
@@ -20,31 +19,30 @@ async function asyncTestCall() {
   console.log(currentPlayer)
 }
 
-function newPlayer (name) {
-   return new Promise(resolve => {
+function newPlayer(name) {
+  return new Promise(resolve => {
     let newPlayer = {
       "name": name,
       "current scene": 0,
       "visited scenes": [0],
       "progress": {
-        "is alive" : true,
+        "is alive": true,
       },
-      "inventory": {
-      }
+      "inventory": {}
     }
     loadJsonFile('gamestate.json').then(data => {
       data.players.push(newPlayer)
       currentPlayer = newPlayer
-        writeJsonFile('gamestate.json', data).then(() => {
-          resolve()
-        }) 
-      })  
+      writeJsonFile('gamestate.json', data).then(() => {
+        resolve()
+      })
     })
-  }
-  
-function loadPlayer (name) { 
+  })
+}
+
+function loadPlayer(name) {
   loadJsonFile('gamestate.json').then(data => {
-   currentPlayer = data.Player.find(x => x.name == name)
+    currentPlayer = data.Player.find(x => x.name == name)
   })
 }
 
@@ -52,10 +50,9 @@ function savePlayer(name) {
   loadJsonFile('gamestate.json').then(data => {
     let pulledData = data.players.find(x => x.name == name)
     Object.assign(pulledData, currentPlayer)
-      writeJsonFile('gamestate.json', data).then(() => { 
+    writeJsonFile('gamestate.json', data).then(() => {})
+
   })
- 
-})
 }
 
 

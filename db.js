@@ -24,7 +24,7 @@ function getQuestion(id) {
     .select()
 }
 
-function getFilterByScene(scene) {
+function getFilterOther(scene) {
   return conn('inputs')
     .where('scene', scene)
     .select()
@@ -34,6 +34,13 @@ function getScene(id) {
   return conn('scenes')
     .where('id', id)
     .select()
+}
+
+function getFilter(scene, type) {
+  return conn('inputs')
+  .where('scene', scene)
+  .andWhere('type', type)
+  .select()
 }
 
 
