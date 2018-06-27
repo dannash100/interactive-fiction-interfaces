@@ -1,4 +1,5 @@
 const data = require('./gamestate')
+const db = require('./db')
 
 
 const commands = {
@@ -6,7 +7,7 @@ const commands = {
     lookIn: ["look inside the", "look inside", "look into", "look in"],
     push: ["push", "move"],
     pull: ["pull"],
-    take: ["pick up", "pickup", "take", "get"],
+    take: ["pick up", "get the", "pickup", "take", "get"],
     open: ["open"],
     close: ["close"],
     turn: ["turn", "rotate", "spin"],
@@ -26,8 +27,8 @@ const movement = {
     southeast: ["se", "southeast", "go southeast", "move southeast", "walk southeast", "south-east", "go south-east", "move south-east", "walk south-east"]
 }
 
-const global = { 
-    inventory:  ["inventory", "pack", "look at inventory", "check inventory", "open inventory", "look in pack", "look in inventory"],
+const global = {
+    inventory: ["inventory", "pack", "look at inventory", "check inventory", "open inventory", "look in pack", "look in inventory"],
     quit: ["quit", "exit game", "quit game"],
     save: ["save", "save progress", "save game"],
     load: ["load", "load game", "restore"]
@@ -92,17 +93,31 @@ function checkVerbs(words) {
         for (let y = 0; y < commands[commandType[i]].length; y++) {
             if (words.includes(commands[commandType[i]][y].toUpperCase())) {
                 noun = words.replace(commands[commandType[i]][y].toUpperCase(), "").trim()
-                return [commands[commandType[i]][y], noun]
+                return [commandType[i], noun]
             }
         }
     }
     return false
 }
 
-
-function filterOther(words, scene) {
-
+function getSceneFilter(words, scene) {
+    db.getFilterOther(scene).then(filter => {
+        console.log(filterOther(words, filter))
+    })
 }
+
+
+function filterOther(words, filter) {
+    let reply = ""
+    for (let i = 0; i < filter.length; i++) {
+        if (words == filter[i].input) reply = filter[i].reply
+        return filter[i].reply
+    }
+}
+
+
+getSceneFilter("dog", "dogtown")
+
 
 function filterNoun(noun, type, scene) {
 
@@ -110,6 +125,6 @@ function filterNoun(noun, type, scene) {
 }
 
 
-console.log(checkVerbs("read dog"))
-checkMove("south")
-checkGlobal("inventory")
+
+// checkMove("south")
+// checkGlobal("inventory")

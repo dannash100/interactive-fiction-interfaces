@@ -5,7 +5,7 @@ const conn = require('knex')(config)
 module.exports = {
   getMessages: getMessages,
   getQuestion: getQuestion,
-  getFilterByScene: getFilterByScene,
+  getFilterOther, getFilterOther,
   getScene: getScene
 
 }

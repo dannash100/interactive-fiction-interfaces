@@ -64,7 +64,8 @@ function processAnswers(answer, scene) {
 
 function filterWords(words, scene) {
   let word = words[0]
-  db.getFilterByScene(scene).then(filter => {
+  console.log(word, scene)
+  db.getFilterOther(scene).then(filter => {
     filter.forEach((x, i) => {
       if (word == x.input) console.log(x.reply)
     })
