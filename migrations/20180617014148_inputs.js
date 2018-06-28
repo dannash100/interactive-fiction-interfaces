@@ -9,6 +9,14 @@ return knex.schema.createTable('inputs', (table) =>{
   table.string('alias3')
   table.string('reply')
   table.string('type')
+  table.string('condition')
+  table.string('condition2')
+  table.string('condition_detail')
+  table.string('condition_detail2')
+  table.string('event')
+  table.string('event2')
+  table.string('event_detail')
+  table.string('event_detail2')
 })
 };
 

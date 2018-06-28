@@ -16,6 +16,7 @@ let currentPlayer = {
 
 
 
+
 async function asyncTestCall() {
   await newPlayer('dan')
   console.log(currentPlayer)
@@ -58,6 +59,7 @@ function savePlayer(name) {
 
   })
 }
+
 
 
 //// promise rejections

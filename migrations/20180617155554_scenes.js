@@ -12,6 +12,10 @@ exports.up = function(knex, Promise) {
   table.integer('south')
   table.integer('southeast')
   table.integer('southwest')
+  table.string('condition')
+  table.string('condition2')
+  table.string('path')
+  table.string('path2')
 })
 };
 

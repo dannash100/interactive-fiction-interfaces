@@ -1,8 +1,7 @@
-const data = require('./gamestate')
+
 const db = require('./db')
-const inquirer = require('inquirer')
-const question = require('./inquirer')
 const display = require('./display')
+const { checkCondition } = require('./events_conditions') 
 
 const commands = {
     lookIn: ["look inside the", "look into the", "look inside", "look into", "look in"],
@@ -37,8 +36,8 @@ const global = {
 }
 
 const defaultResponse = {
-    lookIn: ["I can't look in the"],
-    lookAt: ["I can't look at the"],
+    lookIn: ["I can't see inside the"],
+    lookAt: ["I can't see the"],
     push: ["I can't push the"],
     pull: ["I can't pull the"],
     take: ["I can't take the"],
@@ -133,10 +132,11 @@ function runFilter(words, filter, type) {
     words = words.toLowerCase()
     for (let i = 0; i < filter.length; i++) {
         if (words == filter[i].input || filter[i].alias1 || filter[i].alias2 || filter[i].alias3) {
-            reply = filter[i].reply
+          if (checkCondition(filter[i].condition, filter[i].condition_detail) && checkCondition(filter[i].condition2, filter[i].condition_detail2)) reply = filter[i].reply
+            
         }
     }
-    if (!reply.length) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`
+    if (!reply) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`
     display.printAnswer(reply)
 }
 

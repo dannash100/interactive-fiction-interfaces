@@ -15,9 +15,10 @@ function mainMenu() {
 
 function test (scene) {
   var questions = [{
-      name: 'answer',
+      name: 'input',
       type: 'input',
       message: '',
+      suffix: "",
       validate: function(value) {
         return (value.length) ? true : true
       }
