@@ -9,7 +9,9 @@ let currentPlayer = {
   "progress": {
     "is alive": true,
   },
-  "inventory": {}
+  "inventory": {
+    "cool dog": "a cool dog"
+  }
 }
 
 
@@ -28,7 +30,9 @@ function newPlayer(name) {
       "progress": {
         "is alive": true,
       },
-      "inventory": {}
+      "inventory": {
+        
+      }
     }
     loadJsonFile('gamestate.json').then(data => {
       data.players.push(newPlayer)

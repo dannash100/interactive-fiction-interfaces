@@ -1,19 +1,21 @@
 const data = require('./gamestate')
 const db = require('./db')
-
+const inquirer = require('inquirer')
+const question = require('./inquirer')
+const display = require('./display')
 
 const commands = {
+    lookIn: ["look inside the", "look into the", "look inside", "look into", "look in"],
     lookAt: ["look at the", "look at", "look to", "look"],
-    lookIn: ["look inside the", "look inside", "look into", "look in"],
-    push: ["push", "move"],
-    pull: ["pull"],
-    take: ["pick up", "get the", "pickup", "take", "get"],
-    open: ["open"],
-    close: ["close"],
-    turn: ["turn", "rotate", "spin"],
-    drink: ["drink"],
-    eat: ["eat", "consume"],
-    read: ["read"]
+    push: ["push the", "move the", "push", "move"],
+    pull: ["pull the", "pull"],
+    take: ["pick up the", "take the", "pickup the", "pick up", "get the", "pickup", "take", "get", "grab"],
+    open: ["open the", "open"],
+    close: ["close the", "close"],
+    turn: ["turn the", "rotate the", "spin the", "turn", "rotate", "spin"],
+    drink: ["drink the", "drink"],
+    eat: ["eat the", "consume the", "eat", "consume"],
+    read: ["read the", "read"]
 }
 
 const movement = {
@@ -34,41 +36,56 @@ const global = {
     load: ["load", "load game", "restore"]
 }
 
-
-
-//     if (!checkMove(word)) 
-
-
-function processInput(words, scene) {
-
+const defaultResponse = {
+    lookIn: ["I can't look in the"],
+    lookAt: ["I can't look at the"],
+    push: ["I can't push the"],
+    pull: ["I can't pull the"],
+    take: ["I can't take the"],
+    open: ["I can't open the"],
+    close: ["I can't close the"],
+    turn: ["I can't turn the"],
+    drink: ["The", "will not be very refreshing"],
+    eat: ["I don't think the", "would agree with you"],
+    read: ["The", "is not readable"],
 }
 
 
+
+function processInput(words, scene) {
+    if (!checkMove(words)) {
+        if (!checkGlobal(words)) {
+            const result = checkVerbs(words)
+            result ? getFilter(result[1], scene, result[0]) : display.printAnswer("I didn't understand your request")
+        }
+    }
+}
 
 
 
 function checkMove(words) {
-    let found = false
-    words = words.toUpperCase()
+    let found = ""
+    words = words.toUpperCase().trim()
     for (let i = 0; i < movement.north.length; i++) {
-        if (words === movement.north[i].toUpperCase()) console.log("go north"), found = true
-        if (words === movement.east[i].toUpperCase()) console.log("go east"), found = true
-        if (words === movement.south[i].toUpperCase()) console.log("go south"), found = true
-        if (words === movement.west[i].toUpperCase()) console.log("go west"), found = true
+        if (words === movement.north[i].toUpperCase())  found = "n"
+        if (words === movement.east[i].toUpperCase()) found = "e"
+        if (words === movement.south[i].toUpperCase()) found = "s"
+        if (words === movement.west[i].toUpperCase()) found = "w"
     }
     for (let i = 0; i < movement.northwest.length; i++) {
-        if (words === movement.northwest[i].toUpperCase()) console.log("go northwest"), found = true
-        if (words === movement.northeast[i].toUpperCase()) console.log("go northeast"), found = true
-        if (words === movement.southwest[i].toUpperCase()) console.log("go southwest"), found = true
-        if (words === movement.southeast[i].toUpperCase()) console.log("go southeast"), found = true
+        if (words === movement.northwest[i].toUpperCase()) found = "nw"
+        if (words === movement.northeast[i].toUpperCase()) found = "ne"
+        if (words === movement.southwest[i].toUpperCase()) found = "sw"
+        if (words === movement.southeast[i].toUpperCase()) found = "se"
     }
+    if (found) display.printAnswer(found)
     return found
-}
+}   
 
 
 function checkGlobal(words) {
     let found = false
-    words = words.toUpperCase()
+    words = words.toUpperCase().trim()
     global.inventory.forEach(command => {
         if (words === command.toUpperCase()) console.log("inventory"), found = true
     })
@@ -85,10 +102,10 @@ function checkGlobal(words) {
 }
 
 
+
 function checkVerbs(words) {
     let commandType = Object.keys(commands)
     words = words.toUpperCase()
-
     for (let i = 0; i < commandType.length; i++) {
         for (let y = 0; y < commands[commandType[i]].length; y++) {
             if (words.includes(commands[commandType[i]][y].toUpperCase())) {
@@ -100,31 +117,30 @@ function checkVerbs(words) {
     return false
 }
 
-function getSceneFilter(words, scene) {
-    db.getFilterOther(scene).then(filter => {
-        console.log(filterOther(words, filter))
+
+
+
+function getFilter(words, scene, type) {
+    type = type || "other"
+    db.getFilter(scene, type).then(filter => {
+            runFilter(words, filter, type)
     })
 }
 
 
-function filterOther(words, filter) {
+function runFilter(words, filter, type) {
     let reply = ""
+    words = words.toLowerCase()
     for (let i = 0; i < filter.length; i++) {
-        if (words == filter[i].input) reply = filter[i].reply
-        return filter[i].reply
+        if (words == filter[i].input || filter[i].alias1 || filter[i].alias2 || filter[i].alias3) {
+            reply = filter[i].reply
+        }
     }
+    if (!reply.length) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`
+    display.printAnswer(reply)
 }
 
 
-getSceneFilter("dog", "dogtown")
-
-
-function filterNoun(noun, type, scene) {
-
-
+module.exports = {
+    processInput
 }
-
-
-
-// checkMove("south")
-// checkGlobal("inventory")

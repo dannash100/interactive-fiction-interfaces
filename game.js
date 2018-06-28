@@ -9,7 +9,6 @@ const inquirer  = require('./inquirer');
 // }
 
 startGame()
-run()
 
 
 

@@ -5,8 +5,8 @@ const conn = require('knex')(config)
 module.exports = {
   getMessages: getMessages,
   getQuestion: getQuestion,
-  getFilterOther, getFilterOther,
-  getScene: getScene
+  getScene: getScene,
+  getFilter: getFilter
 
 }
 
@@ -24,11 +24,6 @@ function getQuestion(id) {
     .select()
 }
 
-function getFilterOther(scene) {
-  return conn('inputs')
-    .where('scene', scene)
-    .select()
-}
 
 function getScene(id) {
   return conn('scenes')
@@ -39,7 +34,7 @@ function getScene(id) {
 function getFilter(scene, type) {
   return conn('inputs')
   .where('scene', scene)
-  .andWhere('type', type)
+  .where('type', type)
   .select()
 }
 

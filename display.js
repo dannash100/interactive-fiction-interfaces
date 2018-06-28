@@ -6,16 +6,17 @@ const data = require('./gamestate')
 
 
 
-var cell = "█"
-player = "◘"
-header1 = "    map  "
-header2 = "     N"
 
-const firstLayer = ({northwest,north,northeast}) => `${northwest ? cell : ' '}  ${north ? cell : ' '}  ${northeast ? cell : ' '}\n   `
-const firstRoutes = ({northwest,north,northeast}) => `${northwest ? "╲" : " "} ${north ? "┃" : " "} ${northeast ?  "╱" : " "}\n  `
-const middleLayer = ({east,west}) => `${west ? cell + "━━" + player : "   " + player}${east ? "━━" + cell : "   "}\n   `
-const bottomLayer = ({southwest,south,southeast}) => `${southwest ? "╱" : " "} ${south ? "┃" : " "} ${southeast ? "╲" : " "}\n  `
-const bottomRoutes = ({southwest,south,southeast}) => `${southwest ? cell : " "}  ${south ? cell : " "}  ${southeast ? cell : " "}\n`
+var cell = "█"
+player = "▯"
+header1 = "  map  "
+header2 = "  N  "
+
+const firstLayer = ({northwest,north,northeast}) => `${northwest ? cell : ' '} ${north ? cell : ' '} ${northeast ? cell : ' '}\n   `
+const firstRoutes = ({northwest,north,northeast}) => `${northwest ? "╲" : " "}${north ? "│" : " "}${northeast ?  "╱" : " "}\n  `
+const middleLayer = ({east,west}) => `${west ? cell + "―" + player : "  " + player}${east ? "―" + cell : "  "}\n   `
+const bottomLayer = ({southwest,south,southeast}) => `${southwest ? "╱" : " "}${south ? "│" : " "}${southeast ? "╲" : " "}\n  `
+const bottomRoutes = ({southwest,south,southeast}) => `${southwest ? cell : " "} ${south ? cell : " "} ${southeast ? cell : " "}\n`
 
 
 
@@ -82,15 +83,22 @@ function titleFont(text) {
 }
 
 
-printInventory()
+function printAnswer (answer) {
+  console.log(chalk.white.bold(answer))
 
-titleFont("Dogtown")
+}
 
-db.getScene(1).then(x => {
-  printMap(x[0], "     N")
-})
+// printInventory()
+
+// titleFont("Dogtown")
+
+// db.getScene(1).then(x => {
+//   printMap(x[0], "    N")
+// })
+
 
 
 module.exports = {
-  printMap: printMap
+  printMap: printMap,
+  printAnswer: printAnswer
 }
