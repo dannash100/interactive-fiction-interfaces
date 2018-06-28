@@ -47,6 +47,7 @@ const defaultResponse = {
     drink: ["The", "will not be very refreshing"],
     eat: ["I don't think the", "would agree with you"],
     read: ["The", "is not readable"],
+    other: ["I didn't understand your request to"]
 }
 
 
@@ -55,7 +56,7 @@ function processInput(words, scene) {
     if (!checkMove(words)) {
         if (!checkGlobal(words)) {
             const result = checkVerbs(words)
-            result ? getFilter(result[1], scene, result[0]) : display.printAnswer("I didn't understand your request")
+            result ? getFilter(result[1], scene, result[0]) : getFilter(words, scene)
         }
     }
 }
