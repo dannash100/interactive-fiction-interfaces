@@ -6,7 +6,8 @@ module.exports = {
   getMessages: getMessages,
   getQuestion: getQuestion,
   getScene: getScene,
-  getFilter: getFilter
+  getFilter: getFilter,
+  getItem: getItem
 
 }
 
@@ -22,6 +23,13 @@ function getQuestion(id) {
   return conn('messages')
     .where('id', id)
     .select()
+}
+
+function getItem(name) {
+  return conn('inventory')
+  .where('name', name)
+  .select()
+  .first()
 }
 
 

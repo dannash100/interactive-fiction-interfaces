@@ -99,6 +99,6 @@ function printAnswer (answer) {
 
 
 module.exports = {
-  printMap: printMap,
-  printAnswer: printAnswer
+  printMap,
+  printAnswer
 }

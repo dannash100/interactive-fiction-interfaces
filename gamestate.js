@@ -1,6 +1,6 @@
 const writeJsonFile = require('write-json-file')
 const loadJsonFile = require('load-json-file')
-
+const db = require('./db')
 
 let currentPlayer = {
   "name": "test",
@@ -16,6 +16,22 @@ let currentPlayer = {
 
 
 
+function getItem(name) {
+  db.getItem(name).then(item =>{
+    currentPlayer.inventory[item.name] = item.description
+  })
+}
+
+function loseItem(name) {
+  delete currentPlayer.inventory[name]
+}
+
+function getProgress(progress) {
+  currentPlayer.progress[progress] = true
+}
+function loseProgress(progress) {
+  currentPlayer.progress[progress] = false
+}
 
 async function asyncTestCall() {
   await newPlayer('dan')
@@ -68,5 +84,9 @@ module.exports = {
   currentPlayer,
   savePlayer,
   loadPlayer,
-  newPlayer
+  newPlayer,
+  getItem,
+  loseItem,
+  getProgress,
+  loseProgress
 }
