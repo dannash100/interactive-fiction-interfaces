@@ -1,6 +1,6 @@
 
 const db = require('./db')
-const display = require('./display')
+const { printAnswer } = require('./display')
 const { checkCondition } = require('./events_conditions') 
 
 const commands = {
@@ -29,7 +29,7 @@ const movement = {
 }
 
 const global = {
-    inventory: ["inventory", "pack", "look at inventory", "check inventory", "open inventory", "look in pack", "look in inventory"],
+    inventory: ["inventory", "pack", "look at inventory", "check inventory", "open inventory", "look in pack", "look in inventory", "look in bag"],
     quit: ["quit", "exit game", "quit game"],
     save: ["save", "save progress", "save game"],
     load: ["load", "load game", "restore"]
@@ -65,39 +65,28 @@ function processInput(words, scene) {
 
 function checkMove(words) {
     let found = ""
+    let commandType = Object.keys(movement)
     words = words.toUpperCase().trim()
-    for (let i = 0; i < movement.north.length; i++) {
-        if (words === movement.north[i].toUpperCase())  found = "n"
-        if (words === movement.east[i].toUpperCase()) found = "e"
-        if (words === movement.south[i].toUpperCase()) found = "s"
-        if (words === movement.west[i].toUpperCase()) found = "w"
-    }
-    for (let i = 0; i < movement.northwest.length; i++) {
-        if (words === movement.northwest[i].toUpperCase()) found = "nw"
-        if (words === movement.northeast[i].toUpperCase()) found = "ne"
-        if (words === movement.southwest[i].toUpperCase()) found = "sw"
-        if (words === movement.southeast[i].toUpperCase()) found = "se"
-    }
-    if (found) display.printAnswer(found)
+    for (let i = 0; i < commandType.length; i++) {
+        for (let y = 0; y < movement[commandType[i]].length; y++) {
+            if (words === movement[commandType[i]][y].toUpperCase())  found = commandType[i]
+        }
+    }    
+    if (found) printAnswer(found)
     return found
 }   
 
 
 function checkGlobal(words) {
     let found = false
+    let commandType = Object.keys(global)
     words = words.toUpperCase().trim()
-    global.inventory.forEach(command => {
-        if (words === command.toUpperCase()) console.log("inventory"), found = true
-    })
-    global.quit.forEach(command => {
-        if (words === command.toUpperCase()) console.log("quit"), found = true
-    })
-    global.save.forEach(command => {
-        if (words === command.toUpperCase()) console.log("save"), found = true
-    })
-    global.load.forEach(command => {
-        if (words === command.toUpperCase()) console.log("load"), found = true
-    })
+    for (let i = 0; i < commandType.length; i++) {
+        for (let y = 0; y < global[commandType[i]].length; y++) {
+            if (words === global[commandType[i]][y].toUpperCase()) found = commandType[i]
+        }
+    }
+    if (found) printAnswer(found)
     return found
 }
 
@@ -138,7 +127,7 @@ function runFilter(words, filter, type) {
         }
     }
     if (!reply) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`
-    display.printAnswer(reply)
+    printAnswer(reply)
 }
 
 

@@ -1,6 +1,5 @@
 const gameState = require('./gamestate')
 
-console.log(checkCondition("hasItem", "cool dog"))
 
 
 function checkCondition(condition, detail) {
