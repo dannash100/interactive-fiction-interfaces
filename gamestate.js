@@ -11,7 +11,7 @@ let currentPlayer = {
   },
   "inventory": {
     "cool dog": "a cool dog",
-    "dogshead": "a head"  
+    "dogshead": "a head"
   },
 
   "itemsUsed": ["fairy"]
