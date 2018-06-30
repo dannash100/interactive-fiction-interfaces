@@ -13,9 +13,15 @@ exports.up = function(knex, Promise) {
   table.integer('southeast')
   table.integer('southwest')
   table.string('condition')
-  table.string('condition2')
+  table.string('detail')
   table.string('path')
+  table.string('c_description')
+  table.string('condition2')
   table.string('path2')
+  table.string('detail2')
+  table.string('c_description2')
+  table.integer('itemId')
+  table.integer('itemId2')
 })
 };
 

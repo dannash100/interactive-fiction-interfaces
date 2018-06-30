@@ -36,7 +36,7 @@ const global = {
 }
 
 const defaultResponse = {
-    lookIn: ["I can't see inside the"],
+    lookIn: ["I can't see the"],
     lookAt: ["I can't see the"],
     push: ["I can't push the"],
     pull: ["I can't pull the"],

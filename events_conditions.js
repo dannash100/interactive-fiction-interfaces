@@ -1,36 +1,50 @@
-const gameState = require('./gamestate')
+const {currentPlayer, getItem, getProgress, loseProgress} = require('./gamestate')
+const {printText} = require('./inquirer')
+
 
 
 
 function checkCondition(condition, detail) {
     switch (condition) {
         case "hasItem":
-            return gameState.currentPlayer.inventory.hasOwnProperty(detail)
+            return currentPlayer.inventory.hasOwnProperty(detail)
+        case "hasNotItem":
+            return !currentPlayer.inventory.hasOwnProperty(detail) && !currentPlayer.itemsUsed.includes(detail)
+        case "hasUsed":
+            return currentPlayer.inventory.hasOwnProperty(detail) || currentPlayer.itemsUsed.includes(detail) 
         case "hasVisited":
-            return gameState.currentPlayer["visited scenes"].includes(Number(detail))
+            return currentPlayer["visited scenes"].includes(Number(detail))
+        case "hasNotVisited":
+            return !currentPlayer["visited scenes"].includes(Number(detail))
         case "hasProgress":
-            return gameState.currentPlayer.progress.hasOwnProperty(detail)
-        default: 
+            return currentPlayer.progress[detail]
+        case "hasNotProgress":
+            return !currentPlayer.progress[detail]
+        default:
             return true
     }
 }
 
-function getItem(item) {
-
-}
-
-function movePlayer(scene) {
-
-}
-
-function getProgress(progress) {
-
-}
-
-function loseItem(item) {
-
+function checkEvent(event, detail) {
+    switch (event) {
+        case "getItem":
+            return getItem(detail)
+        case "loseItem":
+            return loseItem(detail)
+        case "getProgress":
+            return getProgress(detail)
+        case "loseProgress":
+            return loseProgress(detail)
+        case "movePlayer":
+            return changeScene(detail)
+        case "printText":
+            return printText(detail)
+        default:
+            return
+    }
 }
 
 module.exports = {
-    checkCondition
+    checkCondition,
+    checkEvent
 }

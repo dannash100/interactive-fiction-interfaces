@@ -6,7 +6,8 @@ module.exports = {
   getMessages: getMessages,
   getQuestion: getQuestion,
   getScene: getScene,
-  getFilter: getFilter
+  getFilter: getFilter,
+  getItem: getItem
 
 }
 
@@ -24,11 +25,19 @@ function getQuestion(id) {
     .select()
 }
 
+function getItem(name) {
+  return conn('inventory')
+  .where('name', name)
+  .select()
+  .first()
+}
+
 
 function getScene(id) {
   return conn('scenes')
     .where('id', id)
     .select()
+    .first()
 }
 
 function getFilter(scene, type) {
