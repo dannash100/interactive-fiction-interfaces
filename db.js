@@ -37,6 +37,7 @@ function getScene(id) {
   return conn('scenes')
     .where('id', id)
     .select()
+    .first()
 }
 
 function getFilter(scene, type) {

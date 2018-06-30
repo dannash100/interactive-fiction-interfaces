@@ -10,25 +10,30 @@ let currentPlayer = {
     "is alive": true,
   },
   "inventory": {
-    "cool dog": "a cool dog"
-  }
+    "cool dog": "a cool dog",
+    "dogshead": "a head"  
+  },
+
+  "itemsUsed": ["fairy"]
 }
 
 
 
 function getItem(name) {
-  db.getItem(name).then(item =>{
+  db.getItem(name).then(item => {
     currentPlayer.inventory[item.name] = item.description
   })
 }
 
 function loseItem(name) {
+  currentPlayer.itemsUsed.push(name)
   delete currentPlayer.inventory[name]
 }
 
 function getProgress(progress) {
   currentPlayer.progress[progress] = true
 }
+
 function loseProgress(progress) {
   currentPlayer.progress[progress] = false
 }
@@ -48,8 +53,9 @@ function newPlayer(name) {
         "is alive": true,
       },
       "inventory": {
-        
-      }
+
+      },
+      "itemsUsed": []
     }
     loadJsonFile('gamestate.json').then(data => {
       data.players.push(newPlayer)

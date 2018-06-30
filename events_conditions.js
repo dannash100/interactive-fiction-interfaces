@@ -1,5 +1,5 @@
 const {currentPlayer, getItem, getProgress, loseProgress} = require('./gamestate')
-
+const {printText} = require('./inquirer')
 
 
 
@@ -9,16 +9,18 @@ function checkCondition(condition, detail) {
         case "hasItem":
             return currentPlayer.inventory.hasOwnProperty(detail)
         case "hasNotItem":
-            return !currentPlayer.inventory.hasOwnProperty(detail)
+            return !currentPlayer.inventory.hasOwnProperty(detail) && !currentPlayer.itemsUsed.includes(detail)
+        case "hasUsed":
+            return currentPlayer.inventory.hasOwnProperty(detail) || currentPlayer.itemsUsed.includes(detail) 
         case "hasVisited":
             return currentPlayer["visited scenes"].includes(Number(detail))
-        case "hasNotVisited":   
+        case "hasNotVisited":
             return !currentPlayer["visited scenes"].includes(Number(detail))
         case "hasProgress":
             return currentPlayer.progress[detail]
         case "hasNotProgress":
             return !currentPlayer.progress[detail]
-        default: 
+        default:
             return true
     }
 }
@@ -35,7 +37,9 @@ function checkEvent(event, detail) {
             return loseProgress(detail)
         case "movePlayer":
             return changeScene(detail)
-        default: 
+        case "printText":
+            return printText(detail)
+        default:
             return
     }
 }
