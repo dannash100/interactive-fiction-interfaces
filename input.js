@@ -1,9 +1,12 @@
-
 const db = require('./db');
 const display = require('./display');
-const condition = require('./events_conditions');
-const {moveScene} = require('./gamestate')
-const {refreshScene} =require('./scenes')
+const {
+    checkCondition
+} = require('./events_conditions');
+const {
+    moveScene
+} = require('./gamestate')
+
 
 
 const commands = {
@@ -56,29 +59,38 @@ const defaultResponse = {
 
 
 function processInput(words, scene) {
-    if (!checkMove(words)) {
-        if (!checkGlobal(words)) {
-            const result = checkVerbs(words)
-            result ? getFilter(result[1], scene, result[0]) : getFilter(words, scene)
+    return new Promise(resolve => {
+        if (!checkMove(words, scene)) {
+            if (!checkGlobal(words)) {
+                const result = checkVerbs(words)
+                if (result) {
+                    getFilter(result[1], scene, result[0]).then(()=> {
+                        resolve()
+                    })
+                } else {
+                    getFilter(words, scene).then(() => {
+                        resolve()
+                    })
+                }
+            }
         }
-    }
-    return words
+    })
 }
 
 
 
-function checkMove(words) {
+function checkMove(words, scene) {
     let found = ""
     let commandType = Object.keys(movement)
     words = words.toUpperCase().trim()
     for (let i = 0; i < commandType.length; i++) {
         for (let y = 0; y < movement[commandType[i]].length; y++) {
-            if (words === movement[commandType[i]][y].toUpperCase())  found = commandType[i]
+            if (words === movement[commandType[i]][y].toUpperCase()) found = commandType[i]
         }
-    }     
-    if (found) moveScene()
+    }
+    if (found) moveScene(found, scene)
     return found
-}   
+}
 
 
 function checkGlobal(words) {
@@ -115,8 +127,8 @@ function checkVerbs(words) {
 
 function getFilter(words, scene, type) {
     type = type || "other"
-    db.getFilter(scene.name, type).then(filter => {
-            runFilter(words, filter, type)
+    return db.getFilter(scene.name, type).then(filter => {
+        runFilter(words, filter, type)
     })
 }
 
@@ -126,13 +138,11 @@ function runFilter(words, filter, type) {
     words = words.toLowerCase()
     for (let i = 0; i < filter.length; i++) {
         if (words == filter[i].input || filter[i].alias1 || filter[i].alias2 || filter[i].alias3) {
-          if (checkCondition(filter[i].condition, filter[i].condition_detail) && checkCondition(filter[i].condition2, filter[i].condition_detail2)) reply = filter[i].reply
-            
+            if (checkCondition(filter[i].condition, filter[i].condition_detail) && checkCondition(filter[i].condition2, filter[i].condition_detail2)) reply = filter[i].reply
         }
     }
     if (!reply) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`
     display.printAnswer(reply)
-    refreshScene()
 }
 
 
@@ -140,4 +150,3 @@ module.exports = {
     processInput,
     checkMove
 }
-

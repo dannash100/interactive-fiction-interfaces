@@ -2,8 +2,10 @@
 const db = require('./db')
 const { checkCondition } = require('./events_conditions')
 const { currentPlayer } = require('./gamestate')
-const { printScene, printMap, printAnswer } = require('./display')
-const {askForInput} = require('inquirer')
+const { printScene, printMap} = require('./display')
+const input = require('./input')
+const inquirer = require('inquirer')
+const chalk = require('chalk')
 
 
 let currentScene = {}
@@ -21,9 +23,9 @@ const secondCondition = ({ condition2, detail2, path2 }) => {
 const itemConditions = ({ itemName, itemName2 }) => {
   return db.getItem(itemName).then(item => {
     if (item && (checkCondition("hasNotItem", itemName))) currentScene.description += "\n" + item.scene_description
-  })
   return db.getItem(itemName2).then(item => {
     if (item && (checkCondition("hasNotItem", itemName2))) currentScene.description += "\n" + item.scene_description
+    })
   })
 }
 
@@ -36,11 +38,13 @@ const firstVisit = ({ first_visit_description, id }) => {
 
 
 function refreshScene() {
-  return db.getScene(currentPlayer["current scene"]).then(scene=> {
+  console.log(currentPlayer["current scene"])
+  return db.getScene(1).then(scene=> {
     firstCondition(scene)
     secondCondition(scene)
     firstVisit(scene)
     itemConditions(scene).then(() => {
+      
   })
 })
 }
@@ -59,16 +63,40 @@ function setUpScene(sceneId) {
 
 
 function playScene(scene) {
-  printScene(scene)
-  printMap(scene)
-  askForInput()
+  console.log(currentScene)
+  printScene(currentScene)
+  printMap(currentScene)
+  askForInput(scene)
 }
 
-
+function askForInput (scene) {
+  var questions = [{
+      name: 'input',
+      type: 'input',
+      message: '',
+      suffix: "",
+      prefix: chalk.red("?"),
+      validate: function(value) {
+        return (value.length) ? true : true
+      }
+    }]
+    return inquirer.prompt(questions).then((answer) => {
+      answer = answer.input
+       input.processInput(answer, scene).then(()=> {
+          refreshScene().then(() => {
+            askForInput(scene)
+          })
+       })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 
 
 module.exports = {
   refreshScene,
-  setUpScene
+  setUpScene,
+  currentScene
  
 }
