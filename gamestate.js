@@ -11,13 +11,17 @@ let currentPlayer = {
   },
   "inventory": {
     "cool dog": "a cool dog",
-    "dogshead": "a head"
+    "dogshead": "a head",
+    "dog toy": "a dog"
+    
   },
 
   "itemsUsed": ["fairy"]
 }
 
-
+function moveScene(words) {
+  currentPlayer["current scene"] = 1
+}
 
 function getItem(name) {
   db.getItem(name).then(item => {
@@ -94,5 +98,6 @@ module.exports = {
   getItem,
   loseItem,
   getProgress,
-  loseProgress
+  loseProgress,
+  moveScene
 }

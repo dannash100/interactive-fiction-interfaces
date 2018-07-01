@@ -1,7 +1,10 @@
 
-const db = require('./db')
-const { printAnswer } = require('./display')
-const { checkCondition } = require('./events_conditions') 
+const db = require('./db');
+const display = require('./display');
+const condition = require('./events_conditions');
+const {moveScene} = require('./gamestate')
+const {refreshScene} =require('./scenes')
+
 
 const commands = {
     lookIn: ["look inside the", "look into the", "look inside", "look into", "look in"],
@@ -59,6 +62,7 @@ function processInput(words, scene) {
             result ? getFilter(result[1], scene, result[0]) : getFilter(words, scene)
         }
     }
+    return words
 }
 
 
@@ -71,8 +75,8 @@ function checkMove(words) {
         for (let y = 0; y < movement[commandType[i]].length; y++) {
             if (words === movement[commandType[i]][y].toUpperCase())  found = commandType[i]
         }
-    }    
-    if (found) printAnswer(found)
+    }     
+    if (found) moveScene()
     return found
 }   
 
@@ -86,7 +90,7 @@ function checkGlobal(words) {
             if (words === global[commandType[i]][y].toUpperCase()) found = commandType[i]
         }
     }
-    if (found) printAnswer(found)
+    if (found) display.printAnswer(found)
     return found
 }
 
@@ -111,7 +115,7 @@ function checkVerbs(words) {
 
 function getFilter(words, scene, type) {
     type = type || "other"
-    db.getFilter(scene, type).then(filter => {
+    db.getFilter(scene.name, type).then(filter => {
             runFilter(words, filter, type)
     })
 }
@@ -127,10 +131,13 @@ function runFilter(words, filter, type) {
         }
     }
     if (!reply) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`
-    printAnswer(reply)
+    display.printAnswer(reply)
+    refreshScene()
 }
 
 
 module.exports = {
-    processInput
+    processInput,
+    checkMove
 }
+

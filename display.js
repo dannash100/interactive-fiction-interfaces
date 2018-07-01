@@ -1,14 +1,13 @@
 const chalk = require('chalk');
 const figlet = require('figlet');
-const db = require('./db')
-const commandLineUsage = require('command-line-usage')
-const data = require('./gamestate')
-
+const db = require('./db');
+const commandLineUsage = require('command-line-usage');
+const data = require('./gamestate');
 
 
 
 var cell = "█"
-player = "▯"
+player = chalk.white.bold("█")
 header1 = "  map  "
 header2 = "  N  "
 
@@ -21,7 +20,7 @@ const bottomRoutes = ({southwest,south,southeast}) => `${southwest ? cell : " "}
 
 
 
-function printMap(scene, title) {
+function printMap(scene) {
   var map = "\n  "
 
   map += firstLayer(scene)
@@ -30,7 +29,7 @@ function printMap(scene, title) {
   map += bottomLayer(scene)
   map += bottomRoutes(scene)
 
-  header = title || header1
+ let header = scene.map_header || header1
 
   console.log(chalk.red(header + map))
 
@@ -74,6 +73,26 @@ function printInventory() {
   console.log(usage)
 }
 
+function printScene(scene) {
+  let sections = [{
+    header: chalk.yellow.bold(scene.name) ,
+  },
+  {
+    content: {
+      options: {},
+      data: [{
+          col: `{bold.keyword("white") ${scene.description} }`,
+        },
+      ]
+    }
+  },
+]
+  usage = commandLineUsage(sections)
+  console.log(usage) 
+
+}
+
+
 function titleFont(text) {
   console.log(chalk.red(
     figlet.textSync(text, {
@@ -85,20 +104,15 @@ function titleFont(text) {
 
 function printAnswer (answer) {
   console.log(chalk.white.bold(answer))
-
 }
 
-// printInventory()
 
-// titleFont("Dogtown")
-
-// db.getScene(1).then(x => {
-//   printMap(x[0], "    N")
-// })
 
 
 
 module.exports = {
   printMap,
-  printAnswer
+  printAnswer,
+  printScene
+
 }

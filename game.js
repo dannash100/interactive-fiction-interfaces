@@ -1,7 +1,9 @@
 const chalk       = require('chalk');
 const clear       = require('clear');
 const figlet      = require('figlet');
-const inquirer  = require('./inquirer');
+const {setUpScene} = require('./scenes')
+
+// const inquirer  = require('./inquirer');
 
 // const run = async () => {
 //   const received = await inquirer.askUserForName();
@@ -10,10 +12,10 @@ const inquirer  = require('./inquirer');
 
 startGame()
 
-
-
 function startGame() {
   clear()
+  setUpScene(1)
+
   console.log(
     chalk.red(
       figlet.textSync('Dan Nash', {

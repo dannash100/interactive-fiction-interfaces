@@ -1,49 +1,74 @@
+
 const db = require('./db')
-const {checkCondition} = require('./events_conditions')
+const { checkCondition } = require('./events_conditions')
+const { currentPlayer } = require('./gamestate')
+const { printScene, printMap, printAnswer } = require('./display')
+const {askForInput} = require('inquirer')
+
 
 let currentScene = {}
 
 
-setUpScene(1)
 
-const firstCondition = ({condition, detail, path}) => {
- if (!checkCondition(condition, detail)) currentScene[path] = 0 
-} 
+const firstCondition = ({ condition, detail, path }) => {
+  if (!checkCondition(condition, detail)) currentScene[path] = 0
+}
 
-const secondCondition = ({condition2, detail2, path2}) => {
+const secondCondition = ({ condition2, detail2, path2 }) => {
   if (!checkCondition(condition2, detail2)) currentScene[path2] = 0
 }
 
-const itemConditions = ({itemName, itemName2}) => {
-  if (checkCondition("hasUsed", itemName)) currentScene.itemName = null
-  if (checkCondition("hasUsed", itemName2)) currentScene.itemName2 = null
+const itemConditions = ({ itemName, itemName2 }) => {
+  return db.getItem(itemName).then(item => {
+    if (item && (checkCondition("hasNotItem", itemName))) currentScene.description += "\n" + item.scene_description
+  })
+  return db.getItem(itemName2).then(item => {
+    if (item && (checkCondition("hasNotItem", itemName2))) currentScene.description += "\n" + item.scene_description
+  })
+}
+
+const firstVisit = ({ first_visit_description, id }) => {
+  if (checkCondition("hasNotVisited", id)) {
+    currentPlayer["visited scenes"].push(id)
+    if (first_visit_description) currentScene.description = currentScene.first_visit_description + "\n" + currentScene.description
+  }
+}
+
+
+function refreshScene() {
+  return db.getScene(currentPlayer["current scene"]).then(scene=> {
+    firstCondition(scene)
+    secondCondition(scene)
+    firstVisit(scene)
+    itemConditions(scene).then(() => {
+  })
+})
 }
 
 function setUpScene(sceneId) {
-  db.getScene(sceneId).then(scene => {
+  return db.getScene(sceneId).then(scene => {
     currentScene = scene
-    firstCondition(currentScene)
-    secondCondition(currentScene)
-    itemConditions(currentScene)
-    console.log(currentScene)
-      
-    
-      
+    firstCondition(scene)
+    secondCondition(scene)
+    firstVisit(scene)
+    itemConditions(scene).then(() => {
+      playScene(scene)
     })
+  })
+}
 
 
-  // defines movement options
-  // conditions, defines fiter, displays message, displays conditional messages
-  // asks for prompt
-  // processes prompt
-  // types of prompts- active prompts- change scene, passive prompts- replay scene and conditonal messages mayby changed
-
+function playScene(scene) {
+  printScene(scene)
+  printMap(scene)
+  askForInput()
 }
 
 
 
 
-function playScene(scene) {
-
-
+module.exports = {
+  refreshScene,
+  setUpScene
+ 
 }

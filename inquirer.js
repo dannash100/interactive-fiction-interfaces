@@ -1,16 +1,15 @@
-const inquirer = require('inquirer');
+const inquirer = require('inquirer')
 const db = require('./db')
-const chalk = require('chalk');
-const input = require("./input")
+const chalk = require('chalk')
+const input = require('./input')
 const colors = require('colors')
-
 
 
 // test("dogtown")
 // printText(2, 3, 1)
-printMenu().then(() => {
-  setTimeout( () => test("dogtown"), 200)
-})
+// printMenu().then(() => {
+//   setTimeout( () => test("dogtown"), 200)
+// })
 
 function printMenu() {
   var questions = [{
@@ -30,7 +29,7 @@ function printMenu() {
 }
 
 
-function test (scene) {
+function askForInput (scene) {
   var questions = [{
       name: 'input',
       type: 'input',
@@ -41,9 +40,13 @@ function test (scene) {
         return (value.length) ? true : true
       }
     }]
-
-    return inquirer.prompt(questions).then(answer =>  input.processInput(Object.values(answer)[0], scene)
-  )
+    return inquirer.prompt(questions).then((answer) => {
+      answer = answer.input
+      input.processInput(answer, scene)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 
@@ -73,4 +76,7 @@ function printText() {
 
 
 
-
+module.exports = {
+  printText,
+  askForInput
+}

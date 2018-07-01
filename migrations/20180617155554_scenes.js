@@ -22,6 +22,7 @@ exports.up = function(knex, Promise) {
   table.string('c_description2')
   table.integer('itemId')
   table.integer('itemId2')
+  table.string('first_visit_description')
 })
 };
 
