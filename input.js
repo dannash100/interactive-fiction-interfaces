@@ -60,16 +60,20 @@ const defaultResponse = {
 
 function processInput(words, scene) {
     return new Promise(resolve => {
-        if (!checkMove(words, scene)) {
+
+        if (checkMove(words, scene)) {
+            resolve()
+        }else{
             if (!checkGlobal(words)) {
                 const result = checkVerbs(words)
                 if (result) {
                     getFilter(result[1], scene, result[0]).then(()=> {
-                        resolve()
+                       resolve()
                     })
                 } else {
                     getFilter(words, scene).then(() => {
                         resolve()
+                       
                     })
                 }
             }

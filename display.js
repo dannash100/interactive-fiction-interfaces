@@ -19,7 +19,6 @@ const bottomRoutes = ({southwest,south,southeast}) => `${southwest ? cell : " "}
 
 
 
-
 function printMap(scene) {
   var map = "\n  "
 

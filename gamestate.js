@@ -5,14 +5,13 @@ const db = require('./db')
 
 let currentPlayer = {
   "name": "test",
-  "current scene": 0,
+  "current scene": 1,
   "visited scenes": [0],
   "progress": {
     "is alive": true,
   },
   "inventory": {
     "cool dog": "a cool dog",
-    "dogshead": "a head",
     "dog toy": "a dog"
     
   },
@@ -25,7 +24,6 @@ let currentPlayer = {
 
 function moveScene(words, scene) {
   currentPlayer["current scene"] = scene[words]
-
 }
 
 function getItem(name) {
@@ -56,7 +54,7 @@ function newPlayer(name) {
   return new Promise(resolve => {
     let newPlayer = {
       "name": name,
-      "current scene": 0,
+      "current scene": 1,
       "visited scenes": [0],
       "progress": {
         "is alive": true,
