@@ -28,28 +28,6 @@ function printMenu() {
 }
 
 
-// function askForInput (scene) {
-//   var questions = [{
-//       name: 'input',
-//       type: 'input',
-//       message: '',
-//       suffix: "",
-//       prefix: chalk.red("?"),
-//       validate: function(value) {
-//         return (value.length) ? true : true
-//       }
-//     }]
-//     return inquirer.prompt(questions).then((answer) => {
-//       answer = answer.input
-//       input.processInput(answer, scene)
-//     })
-//     .catch((err) => {
-//       console.log(err)
-//     })
-// }
-
-
-
 
 function printText() {
   var ids = Object.values(arguments)

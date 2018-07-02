@@ -1,6 +1,7 @@
 const writeJsonFile = require('write-json-file')
 const loadJsonFile = require('load-json-file')
 const db = require('./db')
+const {currentScene} = require('./scenes')
 
 
 let currentPlayer = {
@@ -23,6 +24,7 @@ let currentPlayer = {
 /////this needs finishing- be sure to add i cant move there lines
 
 function moveScene(words, scene) {
+  
   currentPlayer["current scene"] = scene[words]
 }
 

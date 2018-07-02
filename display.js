@@ -8,7 +8,7 @@ const data = require('./gamestate');
 
 var cell = "█"
 player = chalk.white.bold("█")
-header1 = "  map  "
+header1 = "    N  "
 header2 = "  N  "
 
 const firstLayer = ({northwest,north,northeast}) => `${northwest ? cell : ' '} ${north ? cell : ' '} ${northeast ? cell : ' '}\n   `
@@ -74,7 +74,7 @@ function printInventory() {
 
 function printScene(scene) {
   let sections = [{
-    header: chalk.yellow.bold(scene.name) ,
+    header: `  ${chalk.yellow.bold(scene.name)}` ,
   },
   {
     content: {
@@ -112,6 +112,8 @@ function printAnswer (answer) {
 module.exports = {
   printMap,
   printAnswer,
-  printScene
+  printScene,
+  titleFont,
+  printInventory
 
 }

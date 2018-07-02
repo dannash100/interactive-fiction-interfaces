@@ -2,6 +2,7 @@ const chalk       = require('chalk');
 const clear       = require('clear');
 const figlet      = require('figlet');
 const {setUpScene} = require('./scenes')
+const {titleFont} = require('./display')
 
 // const inquirer  = require('./inquirer');
 
@@ -14,15 +15,9 @@ startGame()
 
 function startGame() {
   clear()
+  titleFont('dogtown')
   setUpScene(1)
-
-  console.log(
-    chalk.red(
-      figlet.textSync('Dan Nash', {
-        horizontalLayout: 'full'
-      })
-    )
-  )
+  
 }
 
 

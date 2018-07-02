@@ -1,11 +1,7 @@
 const db = require('./db');
 const display = require('./display');
-const {
-    checkCondition
-} = require('./events_conditions');
-const {
-    moveScene
-} = require('./gamestate')
+const {checkCondition} = require('./events_conditions');
+const {moveScene} = require('./gamestate')
 
 
 
@@ -63,17 +59,19 @@ function processInput(words, scene) {
 
         if (checkMove(words, scene)) {
             resolve()
-        }else{
-            if (!checkGlobal(words)) {
+        } else {
+            if (checkGlobal(words)) {
+                resolve()
+            } else {
                 const result = checkVerbs(words)
                 if (result) {
-                    getFilter(result[1], scene, result[0]).then(()=> {
-                       resolve()
+                    getFilter(result[1], scene, result[0]).then(() => {
+                        resolve()
                     })
                 } else {
                     getFilter(words, scene).then(() => {
                         resolve()
-                       
+
                     })
                 }
             }
@@ -106,7 +104,11 @@ function checkGlobal(words) {
             if (words === global[commandType[i]][y].toUpperCase()) found = commandType[i]
         }
     }
-    if (found) display.printAnswer(found)
+    switch (found) {
+        case "inventory":
+            display.printInventory()
+            break
+    }
     return found
 }
 

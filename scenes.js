@@ -37,7 +37,14 @@ const firstVisit = ({first_visit_description,id}) => {
   }
 }
 
-
+function refreshScene(sceneId) {
+  return db.getScene(sceneId).then(scene => {
+    currentScene = scene
+    firstCondition(scene)
+    secondCondition(scene)
+    itemConditions(scene)
+  })
+}
 
 function setUpScene(sceneId) {
   return db.getScene(sceneId).then(scene => {
@@ -72,7 +79,7 @@ function askForInput(scene) {
     return inquirer.prompt(questions).then((answer) => {
         answer = answer.input
         input.processInput(answer, scene).then(() => {
-            if (currentScene.id == currentPlayer["current scene"])   askForInput(scene)
+            if (currentScene.id == currentPlayer["current scene"]) refreshScene(currentPlayer["current scene"]).then(()=> askForInput(scene))   
             else clear(), setTimeout( () => setUpScene(currentPlayer["current scene"]), 50) 
         })
         .catch((err) => {
