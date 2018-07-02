@@ -11,8 +11,6 @@ const clear = require('clear');
 let currentScene = {}
 
 
-
-
 const firstCondition = (scene) => {
   if (!checkCondition(scene.condition, scene.detail)) currentScene[scene.path] = 0
 }

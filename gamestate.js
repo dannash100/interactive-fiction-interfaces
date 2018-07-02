@@ -24,7 +24,7 @@ let currentPlayer = {
 /////this needs finishing- be sure to add i cant move there lines
 
 function moveScene(words, scene) {
-  
+   
   currentPlayer["current scene"] = scene[words]
 }
 
