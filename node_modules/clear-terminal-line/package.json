@@ -1,0 +1,27 @@
+{
+  "name": "clear-terminal-line",
+  "version": "0.0.1",
+  "description": "Clear a terminal line (row).",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": "joegesualdo/clear-terminal-line",
+  "keywords": [
+    "clear",
+    "terminal",
+    "line",
+    "row"
+  ],
+  "author": {
+    "name": "Joe Gesualdo"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*"
+  },
+  "dependencies": {
+    "control-sequence-introducer": "*"
+  }
+}

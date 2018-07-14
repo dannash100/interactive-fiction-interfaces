@@ -1,7 +1,7 @@
 const db = require('./db')
 const {checkCondition} = require('./events_conditions')
 const {currentPlayer} = require('./gamestate')
-const {printScene, printMap} = require('./display')
+const {printScene} = require('./display')
 const input = require('./input')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
@@ -57,9 +57,8 @@ function setUpScene(sceneId) {
 }
 
 
-function playScene(scene) {
+function playScene() {
   printScene(currentScene)
-  printMap(currentScene)
   askForInput(currentScene)
 }
 

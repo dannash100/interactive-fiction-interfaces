@@ -1,7 +1,7 @@
 const db = require('./db');
 const display = require('./display');
-const {checkCondition} = require('./events_conditions');
-const {moveScene} = require('./gamestate')
+const { checkCondition, checkEvent } = require('./events_conditions');
+const { moveScene } = require('./gamestate')
 
 
 
@@ -52,30 +52,13 @@ const defaultResponse = {
     other: ["I didn't understand your request to"]
 }
 
-
-
 function processInput(words, scene) {
     return new Promise(resolve => {
-
-        if (checkMove(words, scene)) {
-            resolve()
-        } else {
-            if (checkGlobal(words)) {
-                resolve()
-            } else {
-                const result = checkVerbs(words)
-                if (result) {
-                    getFilter(result[1], scene, result[0]).then(() => {
-                        resolve()
-                    })
-                } else {
-                    getFilter(words, scene).then(() => {
-                        resolve()
-
-                    })
-                }
-            }
+        if (!checkMove(words, scene) && !checkGlobal(words)) {
+            let [noun, verb] = checkVerbs(words)
+            getFilter(noun, scene, verb)
         }
+        return resolve()
     })
 }
 
@@ -83,12 +66,11 @@ function processInput(words, scene) {
 
 function checkMove(words, scene) {
     let found = ""
-    let commandType = Object.keys(movement)
     words = words.toUpperCase().trim()
-    for (let i = 0; i < commandType.length; i++) {
-        for (let y = 0; y < movement[commandType[i]].length; y++) {
-            if (words === movement[commandType[i]][y].toUpperCase()) found = commandType[i]
-        }
+    for (let type in movement) {
+        movement[type].forEach((command) => {
+            if (words === command.toUpperCase()) found = type
+        })
     }
     if (found) moveScene(found, scene)
     return found
@@ -97,13 +79,12 @@ function checkMove(words, scene) {
 
 function checkGlobal(words) {
     let found = false
-    let commandType = Object.keys(global)
     words = words.toUpperCase().trim()
-    for (let i = 0; i < commandType.length; i++) {
-        for (let y = 0; y < global[commandType[i]].length; y++) {
-            if (words === global[commandType[i]][y].toUpperCase()) found = commandType[i]
-        }
-    }
+    for (let type in global) {
+        global[type].forEach((command) => {
+            if (words === command.toUpperCase()) found = type
+        })
+    }    
     switch (found) {
         case "inventory":
             display.printInventory()
@@ -121,18 +102,17 @@ function checkVerbs(words) {
         for (let y = 0; y < commands[commandType[i]].length; y++) {
             if (words.includes(commands[commandType[i]][y].toUpperCase())) {
                 noun = words.replace(commands[commandType[i]][y].toUpperCase(), "").trim()
-                return [commandType[i], noun]
+                return [noun, commandType[i]]
             }
         }
     }
-    return false
+    return [words, "other"]
 }
 
 
 
 
 function getFilter(words, scene, type) {
-    type = type || "other"
     return db.getFilter(scene.name, type).then(filter => {
         runFilter(words, filter, type)
     })
@@ -143,12 +123,14 @@ function runFilter(words, filter, type) {
     let reply = ""
     words = words.toLowerCase()
     for (let i = 0; i < filter.length; i++) {
-        if (words == filter[i].input || filter[i].alias1 || filter[i].alias2 || filter[i].alias3) {
+        if (words === filter[i].input || words === filter[i].alias1 || words === filter[i].alias2 || words === filter[i].alias3) {
             if (checkCondition(filter[i].condition, filter[i].condition_detail) && checkCondition(filter[i].condition2, filter[i].condition_detail2)) reply = filter[i].reply
+            checkEvent(filter[i].event, filter[i].event_detail)
+            checkEvent(filter[i].event2, filter[i].event_detail2)
         }
     }
     if (!reply) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`
-    display.printAnswer(reply)
+    return display.printAnswer(reply)
 }
 
 

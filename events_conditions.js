@@ -1,5 +1,5 @@
 const {currentPlayer, getItem, getProgress, loseProgress} = require('./gamestate')
-const {printText} = require('./inquirer')
+
 
 
 
@@ -37,8 +37,6 @@ function checkEvent(event, detail) {
             return loseProgress(detail)
         case "movePlayer":
             return changeScene(detail)
-        case "printText":
-            return printText(detail)
         default:
             return
     }

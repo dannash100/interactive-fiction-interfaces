@@ -1,8 +1,11 @@
 const chalk = require('chalk');
 const figlet = require('figlet');
-const db = require('./db');
 const commandLineUsage = require('command-line-usage');
 const data = require('./gamestate');
+const boxen = require('boxen');
+const inquirer = require('inquirer')
+const db = require("./db")
+
 
 
 
@@ -18,8 +21,8 @@ const bottomLayer = ({southwest,south,southeast}) => `${southwest ? "╱" : " "}
 const bottomRoutes = ({southwest,south,southeast}) => `${southwest ? cell : " "} ${south ? cell : " "} ${southeast ? cell : " "}\n`
 
 
+function printScene(scene) {
 
-function printMap(scene) {
   var map = "\n  "
 
   map += firstLayer(scene)
@@ -30,24 +33,79 @@ function printMap(scene) {
 
  let header = scene.map_header || header1
 
-  console.log(chalk.red(header + map))
 
+  let sections = [{
+    header: `  ${chalk.rgb(220, 00, 00).underline(scene.name)}       ` ,
+    
+  },
+  {
+    content: {
+      options: {},
+      data: [{
+          col: `{bold.keyword("white") ${scene.description} }`, 
+          col2: chalk.rgb(220, 00, 00)(header + map), 
+        },
+      ]
+    }
+  },
+]
+  usage = commandLineUsage(sections)
+  console.log(boxen(usage, {borderStyle: 'double-single'})) 
+
+}
+
+function printText() {
+  var ids = Object.values(arguments)
+  return db.getMessages(ids).then(text => {
+    var messages = []
+    text.forEach(x => {
+      messages.push({
+        name: x.name,
+        type: 'input',
+        message: x.message,
+        prefix: "",
+        suffix: chalk.dim("\n ..."),
+        validate: function(value) {
+          return (value.length) ? true : true
+        }
+      })
+
+    })
+    return inquirer.prompt(messages)
+  })
+}
+
+
+
+function printMenu() {
+  var questions = [{
+    message: "what do you want to do...",
+    name: "choice",
+    type: 'list',
+    prefix: chalk.red("?"),
+    choices: [chalk.red("start a new game"), chalk.red("restore game"), chalk.red("exit game")]
+  }]
+  return inquirer.prompt(questions).then(answer => { 
+    
+  
+
+  })
 }
 
 function printInventory() {
   let sections = [{
-      header: 'Inventory',
+      header: `  ${chalk.underline("Inventory")}`,
     },
     {
       content: {
         options: {},
         data: [{
             col: '{bold.keyword("gold") rusty key:}',
-            col2: 'a key to the gardens'
+            col2: `${chalk.white.bold("a key to the gardens")}`
           },
           {
             col: '{bold.keyword("gold") dogs head:}',
-            col2: 'picked up from dogtown, it makes your stomach turn'
+            col2: `${chalk.white.bold("picked up from dogtown, it makes your stomach turn")}`
           }
         ]
       }
@@ -64,31 +122,12 @@ function printInventory() {
     for (let i = 0; i < items.length; i++) {
       sections[1].content.data.push({
         col: `{bold.keyword("gold") ${items[i]}: }`,
-        col2: descriptions[i]
+        col2: `${chalk.white.bold(descriptions[i])}`
       })
     }
   }
   usage = commandLineUsage(sections)
   console.log(usage)
-}
-
-function printScene(scene) {
-  let sections = [{
-    header: `  ${chalk.yellow.bold(scene.name)}` ,
-  },
-  {
-    content: {
-      options: {},
-      data: [{
-          col: `{bold.keyword("white") ${scene.description} }`,
-        },
-      ]
-    }
-  },
-]
-  usage = commandLineUsage(sections)
-  console.log(usage) 
-
 }
 
 
@@ -110,10 +149,10 @@ function printAnswer (answer) {
 
 
 module.exports = {
-  printMap,
   printAnswer,
   printScene,
   titleFont,
-  printInventory
-
+  printInventory,
+  printMenu,
+  printText
 }

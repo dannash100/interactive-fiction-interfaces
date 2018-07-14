@@ -1,7 +1,7 @@
 const writeJsonFile = require('write-json-file')
 const loadJsonFile = require('load-json-file')
 const db = require('./db')
-const {currentScene} = require('./scenes')
+
 
 
 let currentPlayer = {
@@ -12,9 +12,6 @@ let currentPlayer = {
     "is alive": true,
   },
   "inventory": {
-    "cool dog": "a cool dog",
-    "dog toy": "a dog"
-    
   },
 
   "itemsUsed": []
