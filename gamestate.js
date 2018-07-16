@@ -2,55 +2,79 @@ const writeJsonFile = require('write-json-file')
 const loadJsonFile = require('load-json-file')
 const db = require('./db')
 
-
-
 let currentPlayer = {
   "name": "test",
   "current scene": 1,
+  "refresh": false,
   "visited scenes": [0],
   "progress": {
     "is alive": true,
   },
   "inventory": {
+   
   },
-
   "itemsUsed": []
 }
 
 
-/////this needs finishing- be sure to add i cant move there lines
-
-function moveScene(words, scene) {
-   
-  currentPlayer["current scene"] = scene[words]
+function checkCondition(condition, detail) {
+  switch (condition) {
+      case "hasItem":
+          return currentPlayer.inventory.hasOwnProperty(detail)
+      case "hasNotItem":
+          return !currentPlayer.inventory.hasOwnProperty(detail) && !currentPlayer.itemsUsed.includes(detail)
+      case "hasUsed":
+          return currentPlayer.inventory.hasOwnProperty(detail) || currentPlayer.itemsUsed.includes(detail) 
+      case "hasVisited":
+          return currentPlayer["visited scenes"].includes(Number(detail))
+      case "hasNotVisited":
+          return !currentPlayer["visited scenes"].includes(Number(detail))
+      case "hasProgress":
+          return currentPlayer.progress[detail]
+      case "hasNotProgress":
+          return !currentPlayer.progress[detail]
+      default:
+          return true
+  }
 }
 
-function getItem(name) {
+function checkEvent(event, detail) {
+  switch (event) {
+      case "getItem":
+          return getItem(detail)
+      case "loseItem":
+          return loseItem(detail)
+      case "getProgress":
+          return getProgress(detail)
+      case "loseProgress":
+          return loseProgress(detail)
+      case "movePlayer":
+          return changeScene(detail)
+      default:
+          return
+  }
+}
+
+
+const moveScene = (words, scene) => currentPlayer["current scene"] = scene[words]
+const refreshScene = () => currentPlayer.refresh = true
+
+
+const getItem = name => {
   db.getItem(name).then(item => {
     currentPlayer.inventory[item.name] = item.description
   })
 }
-
-function loseItem(name) {
+const loseItem = name => {
   currentPlayer.itemsUsed.push(name)
   delete currentPlayer.inventory[name]
 }
 
-function getProgress(progress) {
-  currentPlayer.progress[progress] = true
-}
+const getProgress = progress => currentPlayer.progress[progress] = true
+const loseProgress = progress => currentPlayer.progress[progress] = false
 
-function loseProgress(progress) {
-  currentPlayer.progress[progress] = false
-}
-
-async function asyncTestCall() {
-  await newPlayer('dan')
-  console.log(currentPlayer)
-}
 
 function newPlayer(name) {
-  return new Promise(resolve => {
     let newPlayer = {
       "name": name,
       "current scene": 1,
@@ -66,11 +90,8 @@ function newPlayer(name) {
     loadJsonFile('gamestate.json').then(data => {
       data.players.push(newPlayer)
       currentPlayer = newPlayer
-      writeJsonFile('gamestate.json', data).then(() => {
-        resolve()
-      })
+      return writeJsonFile('gamestate.json', data)
     })
-  })
 }
 
 function loadPlayer(name) {
@@ -89,9 +110,6 @@ function savePlayer(name) {
 }
 
 
-
-//// promise rejections
-
 module.exports = {
   currentPlayer,
   savePlayer,
@@ -101,5 +119,8 @@ module.exports = {
   loseItem,
   getProgress,
   loseProgress,
-  moveScene
+  moveScene,
+  refreshScene,
+  checkCondition,
+  checkEvent
 }

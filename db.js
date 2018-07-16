@@ -11,7 +11,7 @@ module.exports = {
 
 }
 
-//fetches messages can take any number of arguments
+
 
 function getMessages(ids) {
   return conn('messages')

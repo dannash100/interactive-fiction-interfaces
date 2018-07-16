@@ -23,6 +23,15 @@ exports.up = function(knex, Promise) {
   table.integer('itemId')
   table.integer('itemId2')
   table.string('first_visit_description')
+  table.string('north_message')
+  table.string('northeast_message')
+  table.string('northwest_message')
+  table.string('east_message')
+  table.string('west_message')
+  table.string('south_message')
+  table.string('southeast_message')
+  table.string('southwest_message')
+  table.boolean('refresh')
 })
 };
 

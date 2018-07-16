@@ -5,13 +5,6 @@ const chalk = require('chalk');
 var player = require('play-sound')(opts = {})
 
 
-// const inquirer  = require('./inquirer');
-
-// const run = async () => {
-//   const received = await inquirer.askUserForName();
-//   console.log(credentials);
-// }
-
 startGame()
                          
 function startGame() {
@@ -20,15 +13,14 @@ function startGame() {
   })
   titleFont('DogTown')
   console.log(chalk.white.bold("                                            A game by Dan Nash \n\n"))
-  printMenu().then(()=> {
+  printMenu()
+  .then(()=> {
     clear()
-    printText().then(() => {
-      setUpScene(1)
-    })
- 
+    printText()
   })
-
-  
+  .then(() => {
+    setUpScene(1)
+  })
   
 }
 

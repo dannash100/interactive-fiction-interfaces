@@ -1,9 +1,6 @@
 const db = require('./db');
 const display = require('./display');
-const { checkCondition, checkEvent } = require('./events_conditions');
-const { moveScene } = require('./gamestate')
-
-
+const { moveScene, refreshScene, checkCondition, checkEvent } = require('./gamestate')
 
 const commands = {
     lookIn: ["look inside the", "look into the", "look inside", "look into", "look in"],
@@ -30,8 +27,9 @@ const movement = {
     southeast: ["se", "southeast", "go southeast", "move southeast", "walk southeast", "south-east", "go south-east", "move south-east", "walk south-east"]
 }
 
-const global = {
+const globals = {
     inventory: ["inventory", "pack", "look at inventory", "check inventory", "open inventory", "look in pack", "look in inventory", "look in bag"],
+    look: ["look", "look around"],
     quit: ["quit", "exit game", "quit game"],
     save: ["save", "save progress", "save game"],
     load: ["load", "load game", "restore"]
@@ -52,9 +50,11 @@ const defaultResponse = {
     other: ["I didn't understand your request to"]
 }
 
+
 function processInput(words, scene) {
     return new Promise(resolve => {
-        if (!checkMove(words, scene) && !checkGlobal(words)) {
+        words = words.toUpperCase().trim()
+        if (!checkMove(words, scene) && !checkGlobal(words, scene)) {
             let [noun, verb] = checkVerbs(words)
             getFilter(noun, scene, verb)
         }
@@ -65,11 +65,10 @@ function processInput(words, scene) {
 
 
 function checkMove(words, scene) {
-    let found = ""
-    words = words.toUpperCase().trim()
-    for (let type in movement) {
-        movement[type].forEach((command) => {
-            if (words === command.toUpperCase()) found = type
+    let found = false
+    for (let direction in movement) {
+        movement[direction].forEach(command => {
+            if (words === command.toUpperCase()) found = direction
         })
     }
     if (found) moveScene(found, scene)
@@ -77,39 +76,43 @@ function checkMove(words, scene) {
 }
 
 
+
+
 function checkGlobal(words) {
     let found = false
-    words = words.toUpperCase().trim()
-    for (let type in global) {
-        global[type].forEach((command) => {
-            if (words === command.toUpperCase()) found = type
+    for (let command in globals) {
+        globals[command].forEach(input => {
+            if (words === input.toUpperCase()) found = command
         })
-    }    
+    }
     switch (found) {
         case "inventory":
             display.printInventory()
             break
+        case "look":
+            refreshScene()
+            break
+        case "quit":
+            process.exit()
+        break
+
     }
     return found
 }
 
 
-
 function checkVerbs(words) {
-    let commandType = Object.keys(commands)
-    words = words.toUpperCase()
-    for (let i = 0; i < commandType.length; i++) {
-        for (let y = 0; y < commands[commandType[i]].length; y++) {
-            if (words.includes(commands[commandType[i]][y].toUpperCase())) {
-                noun = words.replace(commands[commandType[i]][y].toUpperCase(), "").trim()
-                return [noun, commandType[i]]
+    let found = false
+    for (let command in commands) {
+        commands[command].forEach(input => {
+            if (words.includes(input.toUpperCase()) && !found) {
+                noun = words.replace(input.toUpperCase(), "").trim()
+                found = [noun, command]
             }
-        }
+        })
     }
-    return [words, "other"]
+    return found ? found : [words, "other"]
 }
-
-
 
 
 function getFilter(words, scene, type) {
@@ -118,23 +121,26 @@ function getFilter(words, scene, type) {
     })
 }
 
-
 function runFilter(words, filter, type) {
     let reply = ""
     words = words.toLowerCase()
-    for (let i = 0; i < filter.length; i++) {
-        if (words === filter[i].input || words === filter[i].alias1 || words === filter[i].alias2 || words === filter[i].alias3) {
-            if (checkCondition(filter[i].condition, filter[i].condition_detail) && checkCondition(filter[i].condition2, filter[i].condition_detail2)) reply = filter[i].reply
-            checkEvent(filter[i].event, filter[i].event_detail)
-            checkEvent(filter[i].event2, filter[i].event_detail2)
+    filter.forEach((match) => {
+        if (words === match.input || words === match.alias1 || words === match.alias2 || words === match.alias3) {
+            if (checkCondition(match.condition, match.condition_detail) && checkCondition(match.condition2, match.condition_detail2)) reply = match.reply
+            checkEvent(match.event, match.event_detail)
+            checkEvent(match.event2, match.event_detail2)
         }
-    }
+    })
     if (!reply) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`
     return display.printAnswer(reply)
 }
 
-
 module.exports = {
     processInput,
-    checkMove
+    checkMove,
+    checkGlobal,
+    checkVerbs,
+    getFilter,
+    runFilter,
+    movement
 }

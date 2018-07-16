@@ -7,8 +7,6 @@ const inquirer = require('inquirer')
 const db = require("./db")
 
 
-
-
 var cell = "█"
 player = chalk.white.bold("█")
 header1 = "    N  "
@@ -31,27 +29,27 @@ function printScene(scene) {
   map += bottomLayer(scene)
   map += bottomRoutes(scene)
 
- let header = scene.map_header || header1
+  let header = scene.map_header || header1
 
 
   let sections = [{
-    header: `  ${chalk.rgb(220, 00, 00).underline(scene.name)}       ` ,
-    
-  },
-  {
-    content: {
-      options: {},
-      data: [{
-          col: `{bold.keyword("white") ${scene.description} }`, 
-          col2: chalk.rgb(220, 00, 00)(header + map), 
-        },
-      ]
-    }
-  },
-]
+      header: `  ${chalk.hex('#ffd700').underline(scene.name)}        `,
+     
+    },
+    {
+      content: {
+        options: {},
+        data: [{
+          col: chalk.white.bold(` ${scene.description}`),
+          col2: chalk.red(header + map),
+        }, ]
+      }
+    },
+  ]
   usage = commandLineUsage(sections)
-  console.log(boxen(usage, {borderStyle: 'double-single'})) 
-
+  console.log(boxen(usage, {
+    borderStyle: 'double-single'
+  }))
 }
 
 function printText() {
@@ -64,8 +62,8 @@ function printText() {
         type: 'input',
         message: x.message,
         prefix: "",
-        suffix: chalk.dim("\n ..."),
-        validate: function(value) {
+        suffix: chalk.dim("\n …"),
+        validate: function (value) {
           return (value.length) ? true : true
         }
       })
@@ -75,20 +73,24 @@ function printText() {
   })
 }
 
-
-
 function printMenu() {
   var questions = [{
-    message: "what do you want to do...",
+    message: "what do you want to do…",
     name: "choice",
     type: 'list',
     prefix: chalk.red("?"),
     choices: [chalk.red("start a new game"), chalk.red("restore game"), chalk.red("exit game")]
   }]
-  return inquirer.prompt(questions).then(answer => { 
-    
-  
-
+  return inquirer.prompt(questions).then(answer => {
+    switch (answer.choice) {
+      case chalk.red("start a new game"):
+        break
+      case chalk.red("restore game"):
+        break
+      case chalk.red("exit game"):
+        printAnswer("Goodbye")
+        process.exit()
+    }
   })
 }
 
@@ -99,15 +101,7 @@ function printInventory() {
     {
       content: {
         options: {},
-        data: [{
-            col: '{bold.keyword("gold") rusty key:}',
-            col2: `${chalk.white.bold("a key to the gardens")}`
-          },
-          {
-            col: '{bold.keyword("gold") dogs head:}',
-            col2: `${chalk.white.bold("picked up from dogtown, it makes your stomach turn")}`
-          }
-        ]
+        data: []
       }
     },
   ]
@@ -130,7 +124,6 @@ function printInventory() {
   console.log(usage)
 }
 
-
 function titleFont(text) {
   console.log(chalk.red(
     figlet.textSync(text, {
@@ -139,12 +132,9 @@ function titleFont(text) {
     })))
 }
 
-
-function printAnswer (answer) {
+function printAnswer(answer) {
   console.log(chalk.white.bold(answer))
 }
-
-
 
 
 
