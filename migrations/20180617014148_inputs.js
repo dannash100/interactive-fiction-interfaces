@@ -17,6 +17,7 @@ return knex.schema.createTable('inputs', (table) =>{
   table.string('event2')
   table.string('event_detail')
   table.string('event_detail2')
+  table.boolean('refresh')
 })
 };
 

@@ -1,9 +1,9 @@
 const chalk = require('chalk');
 const figlet = require('figlet');
-const commandLineUsage = require('command-line-usage');
+const commandLineUsage = require('./lib/command-line-usage');
 const data = require('./gamestate');
 const boxen = require('boxen');
-const inquirer = require('inquirer')
+const inquirer = require('./lib/inquirer')
 const db = require("./db")
 
 
@@ -136,6 +136,28 @@ function printAnswer(answer) {
   console.log(chalk.white.bold(answer))
 }
 
+function printError(error) {
+  console.log(chalk.white.bold(`ERROR:\n${chalk.red(error)}`))
+}
+
+function exit() {
+  var questions = [{
+    message: "Are you sure you want to quit?",
+    name: "choice",
+    type: 'list',
+    prefix: chalk.red("?"),
+    choices: [chalk.red("yes"), chalk.red("no")]
+  }]
+  return inquirer.prompt(questions).then(answer => {
+    switch (answer.choice) {
+      case chalk.red("yes"):
+        printAnswer("Goodbye")
+        process.exit()
+      case chalk.red("no"):
+        break
+    }
+  })
+}
 
 
 module.exports = {
@@ -144,5 +166,7 @@ module.exports = {
   titleFont,
   printInventory,
   printMenu,
-  printText
+  printText,
+  printError,
+  exit
 }

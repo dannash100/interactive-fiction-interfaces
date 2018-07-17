@@ -1,9 +1,7 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('game_state', (table) =>{
-  table.increments('id')
-  table.string('condition')
-  table.boolean('complete')
+  table.string('conditions')
 })
 };
 

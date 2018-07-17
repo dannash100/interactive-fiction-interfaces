@@ -55,7 +55,6 @@ function checkEvent(event, detail) {
   }
 }
 
-
 const moveScene = (words, scene) => currentPlayer["current scene"] = scene[words]
 const refreshScene = () => currentPlayer.refresh = true
 
@@ -65,6 +64,7 @@ const getItem = name => {
     currentPlayer.inventory[item.name] = item.description
   })
 }
+
 const loseItem = name => {
   currentPlayer.itemsUsed.push(name)
   delete currentPlayer.inventory[name]
@@ -78,6 +78,7 @@ function newPlayer(name) {
     let newPlayer = {
       "name": name,
       "current scene": 1,
+      "refresh": false,
       "visited scenes": [0],
       "progress": {
         "is alive": true,

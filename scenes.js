@@ -1,16 +1,16 @@
 const db = require('./db')
 const { currentPlayer, checkCondition } = require('./gamestate')
-const { printScene } = require('./display')
+const { printScene, printError } = require('./display')
 const input = require('./input')
-const inquirer = require('inquirer')
+const inquirer = require('./lib/inquirer')
 const chalk = require('chalk')
 const clear = require('clear');
 
 let currentScene = {}
 
 
-const firstCondition = (scene) => {
-  if (!checkCondition(scene.condition, scene.detail)) currentScene[scene.path] = 0
+const firstCondition = ({condition, detail, path}) => {
+  if (!checkCondition(condition, detail)) currentScene[path] = 0
 }
 
 const secondCondition = ({ condition2, detail2, path2 }) => {
@@ -34,21 +34,25 @@ const firstVisit = ({ first_visit_description, id }) => {
 }
 
 function refreshScene(sceneId) {
-  return db.getScene(sceneId).then(scene => {
+  return db.getScene(sceneId).then(scene => {    
     currentScene = scene
-    firstCondition(scene)
-    secondCondition(scene)
-    itemConditions(scene)
+    firstCondition(currentScene)
+    secondCondition(currentScene)
+    itemConditions(currentScene)
   })
 }
 
 function setUpScene(sceneId) {
   return db.getScene(sceneId).then(scene => {
+    if (!scene) {
+      printError("Could not set up scene, it came back empty from the database")
+      process.exit()
+    }
     currentScene = scene
-    firstCondition(scene)
-    secondCondition(scene)
-    firstVisit(scene)
-    itemConditions(scene).then(() => {
+    firstCondition(currentScene)
+    secondCondition(currentScene)
+    firstVisit(currentScene)
+    itemConditions(currentScene).then(() => {
       printScene(currentScene)
       askForInput(currentScene)
     })

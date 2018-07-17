@@ -5,6 +5,7 @@ return knex.schema.createTable('inventory', (table) =>{
   table.string('name')
   table.string('description')
   table.string('scene_description')
+  table.string('inspect_description')
 })
 };
 

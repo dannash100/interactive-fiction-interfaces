@@ -54,11 +54,31 @@ const defaultResponse = {
 function processInput(words, scene) {
     return new Promise(resolve => {
         words = words.toUpperCase().trim()
-        if (!checkMove(words, scene) && !checkGlobal(words, scene)) {
-            let [noun, verb] = checkVerbs(words)
-            getFilter(noun, scene, verb)
+        let found = checkGlobal(words)
+        switch (found) {
+            case "quit":
+                return display.exit()
+            case "inventory":
+                display.printInventory()
+                break
+            case "look":
+                display.printInventory()
         }
-        return resolve()
+        if (!found) {
+            found = checkMove(words)
+            if (found) {
+                if (scene[found]) moveScene(found, scene)
+                else {
+                    scene[`${found}_message`] ? display.printAnswer(scene[`${found}_message`])
+                        : display.printAnswer(`the way to the ${found} is blocked`)
+                }
+            }
+            else {
+                let [noun, verb] = checkVerbs(words)
+                getFilter(noun, scene, verb)
+            }
+        }
+        resolve()
     })
 }
 
@@ -71,7 +91,6 @@ function checkMove(words, scene) {
             if (words === command.toUpperCase()) found = direction
         })
     }
-    if (found) moveScene(found, scene)
     return found
 }
 
@@ -84,18 +103,6 @@ function checkGlobal(words) {
         globals[command].forEach(input => {
             if (words === input.toUpperCase()) found = command
         })
-    }
-    switch (found) {
-        case "inventory":
-            display.printInventory()
-            break
-        case "look":
-            refreshScene()
-            break
-        case "quit":
-            process.exit()
-        break
-
     }
     return found
 }
@@ -126,9 +133,12 @@ function runFilter(words, filter, type) {
     words = words.toLowerCase()
     filter.forEach((match) => {
         if (words === match.input || words === match.alias1 || words === match.alias2 || words === match.alias3) {
-            if (checkCondition(match.condition, match.condition_detail) && checkCondition(match.condition2, match.condition_detail2)) reply = match.reply
-            checkEvent(match.event, match.event_detail)
-            checkEvent(match.event2, match.event_detail2)
+            if (checkCondition(match.condition, match.condition_detail) && checkCondition(match.condition2, match.condition_detail2)) {
+                reply = match.reply
+                checkEvent(match.event, match.event_detail)
+                checkEvent(match.event2, match.event_detail2)
+                if (match.refreshScene) refreshScene()
+            }
         }
     })
     if (!reply) reply = `${defaultResponse[type][0]} ${words} ${defaultResponse[type].length == 2 ? defaultResponse[type][1] : ""}`

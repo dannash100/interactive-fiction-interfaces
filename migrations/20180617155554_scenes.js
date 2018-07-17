@@ -20,8 +20,8 @@ exports.up = function(knex, Promise) {
   table.string('path2')
   table.string('detail2')
   table.string('c_description2')
-  table.integer('itemId')
-  table.integer('itemId2')
+  table.integer('itemName')
+  table.integer('itemName2')
   table.string('first_visit_description')
   table.string('north_message')
   table.string('northeast_message')
@@ -31,7 +31,6 @@ exports.up = function(knex, Promise) {
   table.string('south_message')
   table.string('southeast_message')
   table.string('southwest_message')
-  table.boolean('refresh')
 })
 };
 
