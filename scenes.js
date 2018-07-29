@@ -45,7 +45,7 @@ function refreshScene(sceneId) {
 function setUpScene(sceneId) {
   return db.getScene(sceneId).then(scene => {
     if (!scene) {
-      printError("Could not set up scene, it came back empty from the database")
+      printError(`Could not set up scene with Id of ${sceneId}, it came back empty from the database`)
       process.exit()
     }
     currentScene = scene
@@ -90,7 +90,7 @@ function askForInput(scene) {
     })
     }
 
-    module.exports = {
+module.exports = {
 
   setUpScene,
   currentScene

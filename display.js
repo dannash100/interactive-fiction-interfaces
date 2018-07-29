@@ -20,18 +20,13 @@ const bottomRoutes = ({southwest,south,southeast}) => `${southwest ? cell : " "}
 
 
 function printScene(scene) {
-
   var map = "\n  "
-
   map += firstLayer(scene)
   map += firstRoutes(scene)
   map += middleLayer(scene)
   map += bottomLayer(scene)
   map += bottomRoutes(scene)
-
   let header = scene.map_header || header1
-
-
   let sections = [{
       header: `  ${chalk.hex('#ffd700').underline(scene.name)}        `,
      
@@ -67,7 +62,6 @@ function printText() {
           return (value.length) ? true : true
         }
       })
-
     })
     return inquirer.prompt(messages)
   })
@@ -148,15 +142,7 @@ function exit() {
     prefix: chalk.red("?"),
     choices: [chalk.red("yes"), chalk.red("no")]
   }]
-  return inquirer.prompt(questions).then(answer => {
-    switch (answer.choice) {
-      case chalk.red("yes"):
-        printAnswer("Goodbye")
-        process.exit()
-      case chalk.red("no"):
-        break
-    }
-  })
+  return inquirer.prompt(questions)
 }
 
 

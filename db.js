@@ -3,15 +3,19 @@ const config = require('./knexfile')[environment]
 const conn = require('knex')(config)
 
 module.exports = {
-  getMessages: getMessages,
-  getQuestion: getQuestion,
-  getScene: getScene,
-  getFilter: getFilter,
-  getItem: getItem
+  getMessages,
+  getQuestion,
+  getScene,
+  getFilter,
+  getItem,
+  getScenes
 
 }
 
-
+function getScenes() {
+  return conn('scenes')
+  .select()
+}
 
 function getMessages(ids) {
   return conn('messages')
