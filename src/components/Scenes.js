@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {fetchScenes} from '../actions/scenes'
+import {fetchGraph} from '../actions/graph'
 import CurrentScene from './CurrentScene'
 import SceneDisplayBar from './SceneDisplayBar'
 
@@ -15,6 +16,7 @@ class Scenes extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(fetchScenes())
+    this.props.dispatch(fetchGraph())
   }
 
   handleChange(e) {
@@ -26,11 +28,8 @@ class Scenes extends React.Component {
 
   render() {
     const scenes = this.props.scenes
-    console.log(scenes)
     return (
-      <div className="columns">
-        <div className="column is-1">
-        </div>
+      <div className="columns scenes">
         <input placeholder="scene name" className="input column is-6" type="text" name="name" onChange={this.handleChange.bind(this)}/>
         <input className="button scene-create-button" type="submit" onClick={this.submit.bind(this)} value="Create"/>
         {this.curentScene && <CurrentScene />}

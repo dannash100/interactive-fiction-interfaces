@@ -4,3 +4,27 @@
 .scene-create-button {
     margin-left: 1em
 }
+
+.tree-container {
+    margin-top: 2em;
+    border: 1px solid black;
+    height: 50em
+}
+
+.main-title {
+    padding-top: 0.5em;
+}
+
+.graphControls {
+    margin-bottom: 2.3em;
+}
+
+.scenes {
+    margin-top: 5em;
+    margin-left: 0.2em
+}
+
+
+:focus {
+    outline: none
+}

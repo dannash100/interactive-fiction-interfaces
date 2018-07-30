@@ -35,3 +35,4 @@ export const fetchScenes = () => dispatch => {
       dispatch(error(err.message))
     })
 }
+
