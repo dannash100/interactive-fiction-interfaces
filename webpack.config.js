@@ -69,7 +69,16 @@ module.exports = {
            plugins: ["transform-es3-member-expression-literals"],
           }
          }
-        }]
+        },{
+            test: /\.ttf$/,
+            use: [
+              {
+                loader: 'ttf-loader',
+                options: {
+                  name: './font/[hash].[ext]',
+                },
+              },]
+            }]
     
     }
 }
