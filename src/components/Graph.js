@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import GraphView from '../../lib/react-digraph/dist'
 import GraphConfig from './graph-config.js'
 
-
 const styles = {
   graph: {
     height: '100%',
@@ -11,23 +10,22 @@ const styles = {
   }
 };
 
-const NODE_KEY = "id" 
-
-const EMPTY_TYPE = "empty"; 
+const NODE_KEY = "id"
+const EMPTY_TYPE = "empty";
 const SPECIAL_TYPE = "special";
 const SPECIAL_CHILD_SUBTYPE = "specialChild";
 const EMPTY_EDGE_TYPE = "emptyEdge";
 const SPECIAL_EDGE_TYPE = "specialEdge";
 
-
-
-let sample = { nodes:
-  [ { id: 1, title: 'test', x: 0, y: 0, type: 'special' },
+let graphData = {
+  nodes:
+    [{ id: 1, title: 'test', x: 0, y: 0, type: 'special' },
     { id: 2, title: 'test', x: 0, y: -400, type: 'empty' },
-    { id: 3, title: 'test', x: 400, y: -800, type: 'empty' } ],
- edges:
-  [ { source: 1, target: 2, type: 'specialEdge' },
-    { source: 2, target: 3, type: 'specialEdge' } ] }
+    { id: 3, title: 'test', x: 400, y: -800, type: 'empty' }],
+  edges:
+    [{ source: 1, target: 2, type: 'specialEdge' },
+    { source: 2, target: 3, type: 'specialEdge' }]
+}
 
 export class Graph extends React.Component {
 
@@ -35,32 +33,29 @@ export class Graph extends React.Component {
     super(props);
 
     this.state = {
-      graph: sample,
+      graph: graphData,
       selected: {}
     }
   }
 
 
   componentDidMount() {
-    this.setState({graph: this.props.graph.graph})
+    this.setState({ graph: this.props.graph.graph })
   }
 
-  // Helper to find the index of a given node
   getNodeIndex(searchNode) {
-    return this.state.graph.nodes.findIndex((node)=>{
+    return this.state.graph.nodes.findIndex((node) => {
       return node[NODE_KEY] === searchNode[NODE_KEY]
     })
   }
 
-  // Helper to find the index of a given edge
   getEdgeIndex(searchEdge) {
-    return this.state.graph.edges.findIndex((edge)=>{
+    return this.state.graph.edges.findIndex((edge) => {
       return edge.source === searchEdge.source &&
         edge.target === searchEdge.target
     })
   }
 
-  // Given a nodeKey, return the corresponding node
   getViewNode = nodeKey => {
     const searchNode = {};
     searchNode[NODE_KEY] = nodeKey;
@@ -68,34 +63,28 @@ export class Graph extends React.Component {
     return this.state.graph.nodes[i]
   }
 
- 
   onUpdateNode = viewNode => {
     const graph = this.state.graph;
     const i = this.getNodeIndex(viewNode);
 
     graph.nodes[i] = viewNode;
-    this.setState({graph: graph});
+    this.setState({ graph: graph });
   }
-
 
   onSelectNode = viewNode => {
-    if (!!viewNode){
-      this.setState({selected: viewNode});
-    } else{
-      this.setState({selected: {}});
+    if (!!viewNode) {
+      this.setState({ selected: viewNode });
+    } else {
+      this.setState({ selected: {} });
     }
   }
-
-
 
   render() {
     const nodes = this.state.graph.nodes;
     const edges = this.state.graph.edges;
     const selected = this.state.selected;
 
-    console.log(selected)
-    
-    sample = this.props.graph
+    // graphData = this.props.graph
 
     const NodeTypes = GraphConfig.NodeTypes;
     const NodeSubtypes = GraphConfig.NodeSubtypes;
@@ -117,7 +106,7 @@ export class Graph extends React.Component {
           enableFocus={true}
           getViewNode={this.getViewNode}
           onSelectNode={this.onSelectNode}
-          onUpdateNode={this.onUpdateNode}/>
+          onUpdateNode={this.onUpdateNode} />
       </div>
     );
   }

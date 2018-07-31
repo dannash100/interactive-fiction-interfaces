@@ -18,7 +18,6 @@ let graph = {
   "edges": []
 }
 
-
 const startingNode = scene => {
   if (!(graph["nodes"].find(node => node["id"] === scene.id))) {
   let node = {

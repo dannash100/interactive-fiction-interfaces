@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 
 
@@ -9,13 +9,13 @@ class CurrentScene extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({[e.target.name] : e.target.value})
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   render() {
     return (
       <div className="columns">
-          <h1>hey</h1>
+        <h1>hey</h1>
       </div>
     )
   }

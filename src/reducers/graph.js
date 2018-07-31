@@ -1,6 +1,10 @@
 import {RECEIVE_GRAPH} from '../actions/graph'
 
-export default function (state = {ready: false}, action) {
+const initialState = {
+  ready: false
+}
+
+export default function (state = initialState, action) {
 
     switch(action.type) {
       case RECEIVE_GRAPH:

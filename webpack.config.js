@@ -23,7 +23,7 @@ module.exports = {
     },
     context: path.resolve(__dirname, 'src'),
     devServer: {
-        contentBase: path.resolve(__dirname, 'public/assets'),
+        contentBase: path.resolve(__dirname, 'assets/'),
         stats: 'errors-only',
         open: true,
         proxy: [ // allows redirect of requests to webpack-dev-server to another destination

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -32,20 +31,20 @@ class SceneDisplayBar extends React.Component {
 
   render() {
     const { classes, scenes } = this.props;
- 
+
     const sceneList = (
       <div className={classes.list}>
         <List>
-            {scenes.map(scene => {
-                return (
-                    <div>
-                    <ListItem button>
-                        <ListItemText primary={scene.name}/>
-                    </ListItem>
-                    <Divider />
-                    </div>
-                ) 
-            })}
+          {scenes.map(scene => {
+            return (
+              <div>
+                <ListItem button>
+                  <ListItemText primary={scene.name} />
+                </ListItem>
+                <Divider />
+              </div>
+            )
+          })}
         </List>
       </div>
     );
@@ -65,7 +64,7 @@ class SceneDisplayBar extends React.Component {
             {sceneList}
           </div>
         </Drawer>
-      </div>  
+      </div>
     );
   }
 }

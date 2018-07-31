@@ -9,7 +9,13 @@ module.exports = {
   getScene,
   getFilter,
   getItem,
-  getScenes
+  getScenes,
+  addScene
+}
+
+function addScene(scene) {
+  return conn('scenes')
+  .insert(scene)
 }
 
 function getScenes() {

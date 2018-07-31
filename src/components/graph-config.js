@@ -2,7 +2,7 @@ import React from 'react';
 
 const EmptyShape = (
   <symbol className="circle" viewBox="0 0 100 100" id="empty">
-    <circle className="circle" cx="50" cy="50" r="50"></circle>
+    <circle stroke="black" stroke-width="0.8" className="circle" cx="50" cy="50" r="48"></circle>
   </symbol>
 )
 
@@ -42,13 +42,13 @@ export default {
       shapeId: "#empty",
       shape: EmptyShape
     }
-  }, 
+  },
   NodeSubtypes: {
     specialChild: {
       shapeId: "#specialChild",
       shape: SpecialChildShape
     }
-  }, 
+  },
   EdgeTypes: {
     emptyEdge: {
       shapeId: "#emptyEdge",

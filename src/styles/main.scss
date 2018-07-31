@@ -1,6 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 @import './my_bulma.scss';
 
+
+
 .scene-create-button {
     margin-left: 1em
 }
@@ -10,8 +12,8 @@
     border: 1px solid rgb(110, 110, 110);
     height: 50em;
     -moz-box-shadow:   inset 0 0 3px #000000;
-   -webkit-box-shadow: inset 0 0 3px #000000;
-   box-shadow:   inset 0 0 3px #000000;
+    -webkit-box-shadow: inset 0 0 3px #000000;
+    box-shadow:   inset 0 0 3px #000000;
 
 }
 
@@ -31,14 +33,15 @@
 
 
 :focus {
-    outline: none
+    outline: none;
+    border: none
 }
 
 .raise:hover {
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
     transform: translateY(-0.25em);
     color: var(--color);
-transition: 0.25s;
+    transition: 0.25s;
 
 &:hover,
 &:focus {
@@ -48,27 +51,27 @@ transition: 0.25s;
   }
 
 .raise-green:hover {
-box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-transform: translateY(-0.25em);
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
 }
 
 .raise-red:hover {
-box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-transform: translateY(-0.25em);
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
 }
 
 
 
 $colors: (
-fill: #a972cb,
-pulse: #ef6eae,
-close: #ff7f82,
-raise: #000000,
-raise-green: #15661a,
-raise-red: #921911,
-up: #e4cb58,
-slide: #8fc866,
-offset: #19bc8b
+    fill: #a972cb,
+    pulse: #ef6eae,
+    close: #ff7f82,
+    raise: #000000,
+    raise-green: #15661a,
+    raise-red: #921911,
+    up: #e4cb58,
+    slide: #8fc866,
+    offset: #19bc8b
 );
 
 
@@ -80,29 +83,9 @@ offset: #19bc8b
 }
 
 
-button {
-color: var(--color);
-transition: 0.25s;
-
-&:hover,
-&:focus {
-    border-color: var(--hover);
-    color: #fff;
-}
-}
-
-button {
-    background: none;
-    border: 2px solid;
-    font: inherit;
-    line-height: 1;
-    margin: 0.5em;
-    padding: 1em 2em;
-  }
 
 
 
-.circle:hover {
 
-}
-   
+
+
