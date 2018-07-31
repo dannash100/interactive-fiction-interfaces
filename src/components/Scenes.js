@@ -31,7 +31,7 @@ class Scenes extends React.Component {
     return (
       <div className="columns scenes">
         <input placeholder="scene name" className="input column is-6" type="text" name="name" onChange={this.handleChange.bind(this)}/>
-        <input className="button scene-create-button" type="submit" onClick={this.submit.bind(this)} value="Create"/>
+        <input className="button scene-create-button raise" type="submit" onClick={this.submit.bind(this)} value="Create"/>
         {this.curentScene && <CurrentScene />}
         <SceneDisplayBar scenes={scenes} />
       </div>
