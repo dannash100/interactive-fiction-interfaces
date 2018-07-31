@@ -42,7 +42,7 @@ class SceneDisplayBar extends React.Component {
                     <ListItem button>
                         <ListItemText primary={scene.name}/>
                     </ListItem>
-                    <Divider/>
+                    <Divider />
                     </div>
                 ) 
             })}

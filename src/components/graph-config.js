@@ -1,8 +1,8 @@
 import React from 'react';
 
 const EmptyShape = (
-  <symbol viewBox="0 0 100 100" id="empty">
-    <circle cx="50" cy="50" r="50"></circle>
+  <symbol className="circle" viewBox="0 0 100 100" id="empty">
+    <circle className="circle" cx="50" cy="50" r="50"></circle>
   </symbol>
 )
 

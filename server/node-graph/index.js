@@ -20,6 +20,7 @@ let graph = {
 
 
 const startingNode = scene => {
+  if (!(graph["nodes"].find(node => node["id"] === scene.id))) {
   let node = {
     "id": scene.id,
     "title": scene.name,
@@ -28,6 +29,7 @@ const startingNode = scene => {
     "type": SPECIAL_TYPE
   }
   graph["nodes"].push(node)
+  }
 }
 
 const newNode = (newScene, sceneId, directions) => {
@@ -42,7 +44,7 @@ const newNode = (newScene, sceneId, directions) => {
     }
     graph["nodes"].push(node)
   }
-  if (!(graph["edges"].find(edge => edge["source"] === newScene.id && edge["target"] === sceneId))) {
+  if (!(graph["edges"].find(edge => (edge["source"] === newScene.id && edge["target"] === sceneId) || (edge["source"] === sceneId && edge["target"] === newScene.id)))) {
     let edge = {
       "source": sceneId,
       "target": newScene.id,
