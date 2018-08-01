@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { newScene } from '../actions/scene'
 import { fetchScenes } from '../actions/scenes'
 import { fetchGraph } from '../actions/graph'
 import CurrentScene from './CurrentScene'
@@ -11,7 +12,7 @@ class Scenes extends React.Component {
 
   state = {
     name: "",
-    currentScene: 0,
+
   }
 
   componentDidMount() {
@@ -24,9 +25,12 @@ class Scenes extends React.Component {
   }
 
   submit() {
+    let sceneName = {name: this.state.name}
+    this.props.dispatch(newScene(sceneName))
   }
 
   render() {
+    console.log(this.props.scene.currentScene)
     const scenes = this.props.scenes
     return (
       <div className="columns scenes">

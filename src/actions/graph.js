@@ -1,7 +1,7 @@
 import {getGraph} from "../api/game"
 
-export const REQUEST_GRAPH = "REQUEST_Graph"
-export const RECEIVE_GRAPH = "RECEIVE_Graph"
+export const REQUEST_GRAPH = "REQUEST_GRAPH"
+export const RECEIVE_GRAPH = "RECEIVE_GRAPH"
 export const ERROR = "ERROR"
 
 const requestGraph = () => {

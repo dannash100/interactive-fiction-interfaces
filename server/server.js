@@ -1,7 +1,7 @@
 const express = require('express')
 const server = express()
 const path = require('path')
-var cors = require('cors')
+
 
 server.use(express.json())
 

@@ -1,7 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 @import './my_bulma.scss';
 
-
+.navigator {
+    height: 50em
+}
 
 .scene-create-button {
     margin-left: 1em
@@ -23,7 +25,7 @@
 }
 
 .graphControls {
-    margin-bottom: 2.3em;
+    margin-bottom: 52em;
 }
 
 .scenes {

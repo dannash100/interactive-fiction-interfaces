@@ -22,8 +22,8 @@ router.get('/graph', (req, res, next) => {
 router.post('/', (req, res, next) => {
     let scene = req.body
     return db.addScene(scene)
-    .then(() => {
-        res.sendStatus(200)
+    .then((id) => {
+        res.json(id)
     })
     .catch(err => {
         console.log(err)

@@ -83,9 +83,6 @@ export class Graph extends React.Component {
     const nodes = this.state.graph.nodes;
     const edges = this.state.graph.edges;
     const selected = this.state.selected;
-
-    // graphData = this.props.graph
-
     const NodeTypes = GraphConfig.NodeTypes;
     const NodeSubtypes = GraphConfig.NodeSubtypes;
     const EdgeTypes = GraphConfig.EdgeTypes;

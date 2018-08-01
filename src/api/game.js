@@ -9,3 +9,8 @@ export function getScenes () {
 export function getGraph () {
     return request.get(rootUrl + "/graph")
 }
+
+export function postScene (sceneName) {
+    return request.post(rootUrl)
+    .send(sceneName)
+}
