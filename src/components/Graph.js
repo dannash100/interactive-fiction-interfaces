@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import GraphView from '../../lib/react-digraph/dist'
 import GraphConfig from './graph-config.js'
+import {fetchScene} from '../actions/scene'
 
 const styles = {
   graph: {
@@ -12,10 +13,7 @@ const styles = {
 
 const NODE_KEY = "id"
 const EMPTY_TYPE = "empty";
-const SPECIAL_TYPE = "special";
-const SPECIAL_CHILD_SUBTYPE = "specialChild";
-const EMPTY_EDGE_TYPE = "emptyEdge";
-const SPECIAL_EDGE_TYPE = "specialEdge";
+
 
 let graphData = {
   nodes:
@@ -74,9 +72,11 @@ export class Graph extends React.Component {
   onSelectNode = viewNode => {
     if (!!viewNode) {
       this.setState({ selected: viewNode });
+      this.props.dispatch(fetchScene(this.state.selected.id))
     } else {
       this.setState({ selected: {} });
     }
+
   }
 
   render() {

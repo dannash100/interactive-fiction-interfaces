@@ -61,9 +61,21 @@ function createGraph(sceneData) {
     })
   })
   console.log(graph)
+  graph = getDirections(graph)
   return graph
 }
 
+function getDirections(graph) {
+  graph.nodes.forEach(node => {
+    Object.keys(data).forEach(direction => {
+     let directionData = graph.nodes.find(surroundingNode => {
+       return surroundingNode["x"] === node["x"] + data[direction][0] && surroundingNode["y"] === node["y"] + data[direction][1]
+      })
+      directionData ? node[direction] = directionData.id : node[direction] = null
+    })
+  })
+  return graph
+}
 
 module.exports = {
   createGraph

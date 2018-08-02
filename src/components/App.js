@@ -2,7 +2,7 @@ import React from 'react'
 import Scenes from './Scenes'
 import Graph from './Graph'
 import { connect } from 'react-redux'
-import Navigator from './Navigator'
+
 
 const App = props => {
   return (

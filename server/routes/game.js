@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 const db = require('../../db')
 var cors = require('cors')
+
 router.use(cors())
 
 router.get('/', (req, res, next) => {
@@ -19,6 +20,19 @@ router.get('/graph', (req, res, next) => {
     })
 })
 
+
+router.post('/scene', (req, res, next) => {
+    let id = req.body.sceneId
+    return db.getScene(id)
+    .then((scene) => {
+        res.json(scene)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+
 router.post('/', (req, res, next) => {
     let scene = req.body
     return db.addScene(scene)
@@ -29,6 +43,7 @@ router.post('/', (req, res, next) => {
         console.log(err)
     })
 })
+
 
 
 module.exports = router

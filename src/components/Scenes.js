@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { newScene } from '../actions/scene'
+import { newScene, fetchScene } from '../actions/scene'
 import { fetchScenes } from '../actions/scenes'
 import { fetchGraph } from '../actions/graph'
-import CurrentScene from './CurrentScene'
 import SceneDisplayBar from './SceneDisplayBar'
 
 
@@ -30,18 +29,17 @@ class Scenes extends React.Component {
   }
 
   render() {
-    console.log(this.props.scene.currentScene)
+    if (this.props.scene.currentSceneId) this.props.dispatch(fetchScene(this.props.scene.currentSceneId))
     const scenes = this.props.scenes
+    console.log(this.props)
     return (
       <div className="columns scenes">
         <input placeholder="scene name" className="input column is-6" type="text" name="name" onChange={this.handleChange.bind(this)} />
         <input className="button scene-create-button raise" type="submit" onClick={this.submit.bind(this)} value="Create" />
-        {this.curentScene && <CurrentScene />}
         <SceneDisplayBar scenes={scenes} />
       </div>
     )
   }
-
 }
 
 const mapStateToProps = state => state
