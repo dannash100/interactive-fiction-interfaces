@@ -1,42 +1,44 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 @import './my_bulma.scss';
 
-.navigator {
-    height: 50em
+:root {
+    box-sizing: border-box
+}
+
+body {
+    overflow: visible !important;
+}
+
+.scenes {
+    margin: 2em
 }
 
 .scene-create-button {
     margin-left: 1em
 }
 
-.tree-container {
-    margin-top: 2em;
+.main-title {
+    margin-left: 0.5em;
+    margin-top: 0.5em
+}
+
+.graph-container {
+    margin: 2em;
     border: 1px solid rgb(110, 110, 110);
     height: 50em;
-    -moz-box-shadow:   inset 0 0 3px #000000;
+    -moz-box-shadow: inset 0 0 3px #000000;
     -webkit-box-shadow: inset 0 0 3px #000000;
-    box-shadow:   inset 0 0 3px #000000;
-
+    box-shadow: inset 0 0 3px #000000;
 }
 
-
-.main-title {
-    padding-top: 0.5em;
-}
-
-.graphControls {
-    margin-bottom: 52em;
-}
-
-.scenes {
-    margin-top: 5em;
-    margin-left: 0.2em
-}
-
-
-:focus {
+:focus,
+div {
     outline: none;
     border: none
+}
+
+.disabled {
+    pointer-events: none
 }
 
 .raise:hover {
@@ -44,50 +46,17 @@
     transform: translateY(-0.25em);
     color: var(--color);
     transition: 0.25s;
-
-&:hover,
-&:focus {
-    border-color: var(--hover);
-    color: rgb(0, 0, 0);
-}
-  }
-
-.raise-green:hover {
-    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-    transform: translateY(-0.25em);
+    &:focus {
+        border-color: var(--hover);
+        color: rgb(0, 0, 0);
+    }
 }
 
-.raise-red:hover {
-    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-    transform: translateY(-0.25em);
+$colors: ( raise: #000000, );
+@each $button,
+$color in $colors {
+    .#{$button} {
+        --color: #{$color};
+        --hover: #{adjust-hue($color, 5deg)};
+    }
 }
-
-
-
-$colors: (
-    fill: #a972cb,
-    pulse: #ef6eae,
-    close: #ff7f82,
-    raise: #000000,
-    raise-green: #15661a,
-    raise-red: #921911,
-    up: #e4cb58,
-    slide: #8fc866,
-    offset: #19bc8b
-);
-
-
-@each $button, $color in $colors {
-.#{$button} {
-    --color: #{$color};
-    --hover: #{adjust-hue($color, 5deg)};
-}
-}
-
-
-
-
-
-
-
-

@@ -8,12 +8,10 @@ const App = props => {
   return (
     <div className="container">
       <h1 className="title is-1 main-title">Text adventure game maker</h1>
-      <div className=" tree-container">
+      <div className=" graph-container">
         {props.graph.ready && <Graph />}
       </div>
-      <div>
       <Scenes />
-      </div>
     </div>
   )
 }
