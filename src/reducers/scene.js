@@ -10,10 +10,34 @@ export default function (state = {}, action) {
            currentSceneId : action.id
         }
       case RECEIVE_SCENE: 
-        return action.scene
+        return sceneWithDirections(action.scene)
       default:
         return state
     }
   }
 
 
+const sceneWithDirections = scene => {
+      let directions = {
+        north: scene.north,
+        east: scene.east,
+        south: scene.south,
+        west: scene.west,
+        northeast: scene.northeast,
+        southeast: scene.southeast,
+        southwest: scene.southwest,
+        northwest: scene.northwest
+      }
+      scene.directions = directions
+      directions = getPaths(directions)
+      return scene
+    }
+    
+    const getPaths = directions => {
+      directions.definedPaths = Object.keys(directions).filter(direction => {
+        return directions[direction] 
+      })
+      directions.undefinedPaths = Object.keys(directions).filter(direction => {
+        return !directions[direction]
+      })
+    }

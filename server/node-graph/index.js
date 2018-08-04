@@ -60,7 +60,6 @@ function createGraph(sceneData) {
       if (scene[direction]) newNode(arr.find(x => x.id === scene[direction]), scene.id, data[direction])
     })
   })
-  console.log(graph)
   graph = getDirections(graph)
   return graph
 }

@@ -8,7 +8,6 @@ export function getScenes () {
 
 export function getScene (sceneId) {
     if (sceneId !== null) {
-        console.log(sceneId)
     return request.post(rootUrl + "/scene")
     .send({sceneId})
     }
