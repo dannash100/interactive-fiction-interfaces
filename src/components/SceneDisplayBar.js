@@ -7,6 +7,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import {connect} from 'react-redux'
+import{fetchScenes} from '../actions/scenes'
+
 
 
 const styles = {
@@ -25,6 +28,7 @@ class SceneDisplayBar extends React.Component {
   };
 
   toggleDrawer = (open) => () => {
+    this.props.dispatch(fetchScenes())
     this.setState({
       drawer: open,
     });
@@ -69,4 +73,7 @@ class SceneDisplayBar extends React.Component {
     );
   }
 }
-export default withStyles(styles)(SceneDisplayBar);
+
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps)(withStyles(styles)(SceneDisplayBar))

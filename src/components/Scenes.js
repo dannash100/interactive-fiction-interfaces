@@ -34,9 +34,9 @@ class Scenes extends React.Component {
     console.log(this.props)
     return (
       <div className="columns scenes">
-        <input placeholder="scene name" className="input column is-6" type="text" name="name" onChange={this.handleChange.bind(this)} />
-        <input className={`button scene-create-button is-pulled-right ${this.state.name.length > 0 ? 'raise' : 'disabled'}` }type="submit" onClick={this.submit.bind(this)} value="Create" />
-        <SceneDisplayBar scenes={scenes} />
+        <input placeholder="scene name" className="input column is-6" type="text" name="name" onChange={this.handleChange.bind(this)} value={this.state.name} />
+        <input className={`button scene-create-button ${this.state.name.length > 0 ? 'raise' : 'disabled'}` }type="submit" onClick={this.submit.bind(this)} value="Create" />
+        <SceneDisplayBar />
       </div>
     )
   }

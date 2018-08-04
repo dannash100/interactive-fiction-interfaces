@@ -60,3 +60,9 @@ $color in $colors {
         --hover: #{adjust-hue($color, 5deg)};
     }
 }
+
+// overwrite @material_ui styling
+
+.jss37 div {
+    width: 250,
+}

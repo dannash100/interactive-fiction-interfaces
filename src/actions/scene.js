@@ -29,7 +29,7 @@ export const newScene = (sceneName) => dispatch => {
   return postScene(sceneName)
     .then(res => {
       let id = res.body[0]
-      dispatch(currentScene(id))
+      dispatch(currentSceneId(id))
     })
     .catch(err => {
       dispatch(error(err.message))
