@@ -13,6 +13,25 @@ module.exports = {
   addScene
 }
 
+const oppositeDirections = {
+  north: "south",
+  east: "west",
+  south: "north",
+  west: "east",
+  northeast: "southwest",
+  southeast: "northwest",
+  southwest: "northeast",
+  northwest: "southeast"
+}
+
+function linkScene(sceneId, linkId, direction) {
+  return conn('scenes')
+  .where(id, sceneId)
+  .insert(linkId, direction)
+  .where(id, linkId)
+  .insert(sceneId, oppositeDirections[direction])
+}
+
 function addScene(scene) {
   return conn('scenes')
   .insert(scene)

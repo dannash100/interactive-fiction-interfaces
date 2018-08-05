@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -59,12 +58,11 @@ module.exports = {
             })
         }, {
          test: /\.js$/,
-         exclude: /(node_modules|bower_compontents)/,
+         exclude: /(node_modules)/,
          use: {
           loader: 'babel-loader',
           options: {
            presets: ['env', 'stage-0', 'react'],
-           plugins: ["transform-es3-member-expression-literals"],
           }
          }
         },{

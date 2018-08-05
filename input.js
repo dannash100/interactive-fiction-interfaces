@@ -51,6 +51,12 @@ const defaultResponse = {
   other: ["I didn't understand your request to"]
 }
 
+const interact = {
+  use: ["use the", "use"],
+  usePrepositions: ["with the", "on the", "in the" ],
+  put: ["put the", "place the", "lay the", "put", "place", "lay"],
+  putPrepositions: ["on the", "in the"]
+}
 
 function processInput(words, scene) {
   return new Promise(resolve => {
@@ -92,6 +98,12 @@ function processInput(words, scene) {
       resolve()
     }
   })
+}
+
+function checkInteraction(words) {
+  if (words.split(" ").length > 3 && words.filter(word => word === "on" || word === "in" || word === "with").length) {
+    console.log("action")
+  }
 }
 
 function checkMove(words) {
