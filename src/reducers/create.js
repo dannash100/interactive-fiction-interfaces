@@ -1,4 +1,5 @@
 import {TO_LINK, TO_LINK_DIRECTION, AVAILABLE_DIRECTIONS} from '../actions/create'
+import {RESET_FIELDS} from '../actions/scene'
 
 const initialState = {
 }
@@ -7,11 +8,13 @@ export default function (state = initialState, action) {
 
     switch(action.type) {
       case TO_LINK:
-        return {...state, linkId: action.linkId }
+        return {...state, linkId: action.linkId, linkName: action.linkName}
       case TO_LINK_DIRECTION:
         return {...state, linkDirection: action.direction}
         case AVAILABLE_DIRECTIONS:
         return {...state, availableDirections: getDirections(action.scene)}
+        case RESET_FIELDS:
+        return initialState
       default:
         return state
     }

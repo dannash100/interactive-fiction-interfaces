@@ -22,6 +22,7 @@ class Scenes extends React.Component {
 
   submit() {
     let sceneName = { name: this.state.name };
+    this.setState({name: ""})
     const {linkId, linkDirection} = this.props.create
     this.props.dispatch(newScene(sceneName, linkId, linkDirection));
   }

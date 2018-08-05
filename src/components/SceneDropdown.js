@@ -8,8 +8,6 @@ import {toLink, availableDirections} from "../actions/create"
 class SceneDropdown extends React.Component {
   state = {
     anchorEl: null,
-    scene: "",
-    id: null
   };
 
   handleClick = event => {
@@ -19,11 +17,7 @@ class SceneDropdown extends React.Component {
   handleClose = (sceneId, sceneName) => {
     if (sceneName !== "backdropClick") {
       const {nodes} = this.props.graph.graph
-      this.setState({
-        scene: sceneName,
-        id: sceneId
-      })
-      this.props.dispatch(toLink(sceneId))
+      this.props.dispatch(toLink(sceneId, sceneName))
       this.props.dispatch(availableDirections(nodes.find(scene => scene.id === sceneId)))
     }
     this.setState({ anchorEl: null });
@@ -40,7 +34,7 @@ class SceneDropdown extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-        {this.state.scene ? this.state.scene : "Select"}
+        {this.props.create.linkName ? this.props.create.linkName : "Select"}
         </Button>
         <Menu
           id="simple-menu"
