@@ -2,17 +2,6 @@ const environment = process.env.NODE_ENV || 'development'
 const config = require('./knexfile')[environment]
 const conn = require('knex')(config)
 
-
-module.exports = {
-  getMessages,
-  getQuestion,
-  getScene,
-  getFilter,
-  getItem,
-  getScenes,
-  addScene
-}
-
 const oppositeDirections = {
   north: "south",
   east: "west",
@@ -26,10 +15,14 @@ const oppositeDirections = {
 
 function linkScene(sceneId, linkId, direction) {
   return conn('scenes')
-  .where(id, sceneId)
-  .insert(linkId, direction)
-  .where(id, linkId)
-  .insert(sceneId, oppositeDirections[direction])
+  .where({id: sceneId})
+  .update({[oppositeDirections[direction]]: linkId})
+}
+
+function linkSceneOpposite(sceneId, linkId, direction) {
+  return conn('scenes')
+  .where({id: linkId})
+  .update({[direction] : sceneId})
 }
 
 function addScene(scene) {
@@ -44,14 +37,14 @@ function getScenes() {
 
 function getMessages(ids) {
   return conn('messages')
-    .whereIn('id', ids)
-    .select()
+  .whereIn('id', ids)
+  .select()
 }
 
 function getQuestion(id) {
   return conn('messages')
-    .where('id', id)
-    .select()
+  .where('id', id)
+  .select()
 }
 
 function getItem(name) {
@@ -64,9 +57,9 @@ function getItem(name) {
 
 function getScene(id) {
   return conn('scenes')
-    .where('id', id)
-    .select()
-    .first()
+  .where('id', id)
+  .select()
+  .first()
 }
 
 function getFilter(scene, type) {
@@ -77,5 +70,14 @@ function getFilter(scene, type) {
 }
 
 
-
-
+module.exports = {
+  getMessages,
+  getQuestion,
+  getScene,
+  getFilter,
+  getItem,
+  getScenes,
+  addScene,
+  linkScene,
+  linkSceneOpposite
+}

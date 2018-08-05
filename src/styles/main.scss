@@ -7,12 +7,22 @@
 
 body {
     overflow: visible !important;
+    padding-right: 0 !important;
 }
 
 .scenes {
     margin: 2em
 }
 
+.scene-dropdown {
+    display: flex
+}
+
+.scene-dropdown p {
+    margin-top: 0.30em;
+    margin-left: 1em;
+    margin-right: 1em
+}
 .scene-create-button {
     margin-left: 1em
 }
@@ -65,8 +75,3 @@ $color in $colors {
     }
 }
 
-// overwrite @material_ui styling
-
-.jss37 div {
-    width: 250,
-}

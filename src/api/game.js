@@ -13,6 +13,15 @@ export function getScene (sceneId) {
     }
 }
 
+export function linkScene(id, linkId, direction) {
+    return request.put(rootUrl + "/link")
+    .send({
+        id: id,
+        linkId: linkId,
+        direction: direction,
+    })
+}
+
 export function getGraph () {
     return request.get(rootUrl + "/graph")
 }

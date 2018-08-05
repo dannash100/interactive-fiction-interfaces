@@ -9,9 +9,11 @@ const App = props => {
     <div className="container">
       <h1 className="title is-1 main-title">Text adventure game maker</h1>
       <nav className="top-nav">
-      <SceneDisplayBar />
+        <SceneDisplayBar />
       </nav>
-      <div className=" graph-container">{props.graph.ready && <Graph />}</div>
+      <div className="graph-container">
+        {props.graph.ready && <Graph />}
+      </div>
       <Scenes />
     </div>
   );

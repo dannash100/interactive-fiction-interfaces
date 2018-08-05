@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import { newScene, fetchScene } from "../actions/scene";
 import { fetchScenes } from "../actions/scenes";
 import { fetchGraph } from "../actions/graph";
+import SceneDropdown from "./SceneDropdown";
+import DirectionDropdown from "./DirectionDropdown";
 
 class Scenes extends React.Component {
   state = {
-    name: ""
+    name: "",
   };
 
   componentDidMount() {
@@ -20,13 +22,16 @@ class Scenes extends React.Component {
 
   submit() {
     let sceneName = { name: this.state.name };
-    this.props.dispatch(newScene(sceneName));
+    const {linkId, linkDirection} = this.props.create
+    this.props.dispatch(newScene(sceneName, linkId, linkDirection));
   }
 
   render() {
     if (this.props.scene.currentSceneId)
       this.props.dispatch(fetchScene(this.props.scene.currentSceneId));
     console.log(this.props);
+    const { name } = this.state
+    const { linkId, linkDirection } = this.props.create
     return (
       <div className="columns scenes">
         <input
@@ -37,10 +42,10 @@ class Scenes extends React.Component {
           onChange={this.handleChange.bind(this)}
           value={this.state.name}
         />
+        <SceneDropdown />
+        <DirectionDropdown />
         <input
-          className={`button scene-create-button ${
-            this.state.name.length > 0 ? "raise" : "disabled"
-          }`}
+          className={`button scene-create-button ${name.length > 0 && linkId && linkDirection ? "raise" : "disabled"}`}
           type="submit"
           onClick={this.submit.bind(this)}
           value="Create"

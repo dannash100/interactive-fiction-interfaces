@@ -1,4 +1,4 @@
-import {postScene, getScene} from "../api/game"
+import {postScene, getScene, linkScene} from "../api/game"
 
 export const CURRENT_SCENE_ID = "CURRENT_SCENE_ID"
 export const RECEIVE_SCENE = "RECEIVE_SCENE"
@@ -25,11 +25,14 @@ const error = error => {
   }
 }
 
-export const newScene = (sceneName) => dispatch => {
+export const newScene = (sceneName, linkId, direction) => dispatch => {
   return postScene(sceneName)
     .then(res => {
       let id = res.body[0]
-      dispatch(currentSceneId(id))
+      return linkScene(id, linkId, direction)
+        .then((success) => {
+          if (success) currentSceneId(id)
+        })
     })
     .catch(err => {
       dispatch(error(err.message))

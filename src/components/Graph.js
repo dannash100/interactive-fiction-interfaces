@@ -14,16 +14,9 @@ const styles = {
 const NODE_KEY = "id";
 const EMPTY_TYPE = "empty";
 
-let graphData = {
-  nodes: [
-    { id: 1, title: "test", x: 0, y: 0, type: "special" },
-    { id: 2, title: "test", x: 0, y: -400, type: "empty" },
-    { id: 3, title: "test", x: 400, y: -800, type: "empty" }
-  ],
-  edges: [
-    { source: 1, target: 2, type: "specialEdge" },
-    { source: 2, target: 3, type: "specialEdge" }
-  ]
+let initialStateGraph = {
+  nodes: [],
+  edges: []
 };
 
 export class Graph extends React.Component {
@@ -31,13 +24,10 @@ export class Graph extends React.Component {
     super(props);
 
     this.state = {
-      graph: graphData,
+      graph: initialStateGraph,
       selected: {}
     };
-  }
-
-  componentDidMount() {
-    this.setState({ graph: this.props.graph.graph });
+    this.state.graph = this.props.graph.graph
   }
 
   getNodeIndex(searchNode) {
