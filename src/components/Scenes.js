@@ -35,7 +35,7 @@ class Scenes extends React.Component {
     const { linkId, linkDirection } = this.props.create;
     return (
       <div className="columns scenes">
-        <span className="title is-5">New Scene:</span>
+        <span className="title is-4 new-scene-title">New Scene:</span>
         <input
           placeholder="scene name"
           className="input column is-2 scene-name-input"
