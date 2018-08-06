@@ -32,15 +32,12 @@ const error = error => {
   }
 }
 
-
-
 export const newScene = (sceneName, linkId, direction) => dispatch => {
   return postScene(sceneName)
     .then(res => {
       let id = res.body[0]
       return linkScene(id, linkId, direction)
         .then(() => {
-          console.log('hi')
             dispatch(currentSceneId(id))
             dispatch(resetFields())
         })

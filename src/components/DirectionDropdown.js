@@ -26,7 +26,7 @@ class DirectionDropdown extends React.Component {
     const { availableDirections } = this.props.create;
     return (
       <div className="scene-dropdown">
-      <p>by direction</p>
+      <p className="subtitle">by direction</p>
         <Button
           className={availableDirections ? "" : "disabled"}
           aria-owns={anchorEl ? 'simple-menu' : null}

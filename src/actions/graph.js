@@ -24,8 +24,6 @@ const error = error => {
   }
 }
 
-
-
 export const fetchGraph = () => dispatch => {
     dispatch(requestGraph())
     return getGraph()

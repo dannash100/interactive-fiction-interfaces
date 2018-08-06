@@ -28,7 +28,7 @@ class SceneDropdown extends React.Component {
     const { scenes } = this.props;
     return (
       <div className="scene-dropdown">
-      <p>connected to </p>
+      <p className="subtitle">connected to </p>
         <Button
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"

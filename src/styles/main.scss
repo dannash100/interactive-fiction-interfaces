@@ -2,33 +2,59 @@
 @import './my_bulma.scss';
 
 :root {
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 body {
     overflow: visible !important;
     padding-right: 0 !important;
+    
 }
 
 .scenes {
-    margin: 2em
+    margin: 2em;
+    display: block
+}
+
+.scenes > span {
+    margin-right: 1em;
+    margin-top: 0.25em;
+
+}
+
+.scene-name-input input {
+    flex: auto
 }
 
 .scene-dropdown {
-    display: flex
+    display: flex;
+    margin-bottom: 0.8em;
 }
+
+
+.scene-dropdown button {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.85em
+}   
 
 .scene-dropdown p {
     margin-top: 0.30em;
     margin-left: 1em;
     margin-right: 1em
 }
+
 .scene-create-button {
     margin-left: 1em
 }
 
 .top-nav {
-    margin-left: 2em
+    margin-left: 2em;
+}
+
+.top-nav button {
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .main-title {
