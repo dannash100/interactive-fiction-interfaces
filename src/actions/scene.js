@@ -38,11 +38,11 @@ export const newScene = (sceneName, linkId, direction) => dispatch => {
       let id = res.body[0]
       return linkScene(id, linkId, direction)
         .then(() => {
-            dispatch(currentSceneId(id))
+            dispatch(fetchScene(id))
             dispatch(resetFields())
         })
     })
-    .catch(err => {
+    .catch(err => { 
       dispatch(error(err.message))
     })
 }

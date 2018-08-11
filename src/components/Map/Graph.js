@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import GraphView from "../../lib/react-digraph/dist";
+import GraphView from "../../../lib/react-digraph/dist";
 import GraphConfig from "./graph-config.js";
-import { fetchScene } from "../actions/scene";
+import { fetchScene } from "../../actions/scene";
 
 const styles = {
   graph: {
@@ -28,6 +28,12 @@ export class Graph extends React.Component {
       selected: {}
     };
     this.state.graph = this.props.graph.graph
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {nodes, edges} = nextProps.graph.graph
+    if (this.state.graph.edges.length + this.state.graph.nodes.length !== nodes.length + edges.length)
+    this.setState({graph : nextProps.graph.graph})
   }
 
   getNodeIndex(searchNode) {

@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
-import {toLinkDirection} from "../actions/create"
+import {toLinkDirection} from "../../actions/create"
 
 class DirectionDropdown extends React.Component {
   state = {
@@ -41,9 +41,9 @@ class DirectionDropdown extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {availableDirections && availableDirections.map(direction => {
+          {availableDirections && availableDirections.length > 0 ? availableDirections.map(direction => {
             return <MenuItem onClick={() => this.handleClose(direction)}>{direction}</MenuItem>
-          })}
+          }) : <MenuItem className="disabled has-text-danger has-text-weight-semibold">No Directions</MenuItem>}
         </Menu>
       </div>
     );

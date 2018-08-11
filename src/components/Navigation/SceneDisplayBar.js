@@ -7,8 +7,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import { connect } from "react-redux";
-import { fetchScenes } from "../actions/scenes";
-import { fetchScene } from "../actions/scene";
+import { fetchScenes } from "../../actions/scenes";
+import { fetchScene } from "../../actions/scene";
 
 const styles = {
   list: {

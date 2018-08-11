@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { newScene, fetchScene } from "../actions/scene";
-import { fetchScenes } from "../actions/scenes";
-import { fetchGraph } from "../actions/graph";
+import { newScene, fetchScene } from "../../actions/scene";
+import { fetchScenes } from "../../actions/scenes";
+import { fetchGraph } from "../../actions/graph";
 import SceneDropdown from "./SceneDropdown";
 import DirectionDropdown from "./DirectionDropdown";
 
@@ -24,7 +24,9 @@ class Scenes extends React.Component {
     let sceneName = { name: this.state.name };
     this.setState({ name: "" });
     const { linkId, linkDirection } = this.props.create;
-    this.props.dispatch(newScene(sceneName, linkId, linkDirection));
+    this.props.dispatch(newScene(sceneName, linkId, linkDirection)).then(() => {
+      this.props.dispatch(fetchGraph())
+    })
   }
 
   render() {
