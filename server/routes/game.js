@@ -7,20 +7,20 @@ var cors = require('cors')
 
 router.use(cors())
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
     return db.getScenes().then(scenes => {
         res.json(scenes)
     })
 })
 
-router.get('/graph', (req, res, next) => {
+router.get('/graph', (req, res) => {
     return db.getScenes().then(scenes => {
         let graph = createGraph(scenes)
         res.json(graph)
     })
 })
 
-router.put('/link', (req, res, next) => {
+router.put('/link', (req, res) => {
     const {id, linkId, direction} = req.body
     return db.linkScene(id, linkId, direction)
         .then(() => {
@@ -35,7 +35,7 @@ router.put('/link', (req, res, next) => {
 })
 
 
-router.post('/scene', (req, res, next) => {
+router.post('/scene', (req, res) => {
     let id = req.body.sceneId
     return db.getScene(id)
         .then((scene) => {
@@ -47,7 +47,7 @@ router.post('/scene', (req, res, next) => {
 })
 
 
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
     let scene = req.body
     return db.addScene(scene)
         .then((id) => {

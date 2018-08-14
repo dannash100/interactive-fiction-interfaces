@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "knex": "knex",
-    "start": "yarn nodemon & webpack-dev-server",
     "nodemon": "nodemon ./server/index.js",
     "test": "jest --watchAll",
+    "start": "yarn nodemon & webpack-dev-server --open",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
     "build": "webpack"
   },
   "repository": {
@@ -80,6 +81,7 @@
     "react-d3-tree": "^1.10.6",
     "react-digraph": "^4.0.3",
     "react-dom": "^16.4.1",
+    "react-hot-loader": "^4.0.0",
     "react-icons": "^2.2.7",
     "react-json-graph": "^2.0.2",
     "react-redux": "^5.0.7",

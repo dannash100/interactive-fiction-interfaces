@@ -1,80 +1,46 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractPlugin = new ExtractTextPlugin({
-    filename: './style.css'
-});
-
 
 module.exports = {
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        }
-    },
     entry: "./index.js",
-    output: {        
+    devtool: 'cheap-module-source-map',
+    output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'public')
     },
     context: path.resolve(__dirname, 'src'),
     devServer: {
-        contentBase: path.resolve(__dirname, 'assets/'),
-        stats: 'errors-only',
-        open: true,
-        proxy: [ // allows redirect of requests to webpack-dev-server to another destination
-            {
-              context: ['/api', '/auth'],  // can have multiple
-              target: 'http://localhost:8080', // server and port to redirect to
-              secure: false,
-            }],
-        port: 8080,
-        compress: true
-    },
-    plugins: [
-        new CleanWebpackPlugin(['public']),
-        new HtmlWebpackPlugin({
-            template: 'index.html'
-        }),
-        extractPlugin,
-    ],
+        port: 3000,
+        host: 'localhost',
+        //Be possible go back pressing the "back" button at chrome
+        historyApiFallback: true,
+        noInfo: false,
+        stats: 'minimal',
+        publicPath: 'public',
+        contentBase: path.join(__dirname, 'public'),
+        hot: true
+      },
+      
     module: {
-        rules: [{
-            test: /\.(jpg|png|gif|svg)$/,
-            use: [
+        
+        rules: [
             {
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]',
-                    outputPath: './assets/',
-                }
-            }]
-        }, {
             test: /\.scss$/,
-            use: extractPlugin.extract({
-             use: ["css-loader", "sass-loader?sourceMap"],
-             fallback: 'style-loader'
-            })
-        }, {
-         test: /\.js$/,
-         exclude: /(node_modules)/,
-         use: {
-          loader: 'babel-loader',
-          options: {
-           presets: ['env', 'stage-0', 'react'],
-          }
-         }
-        },{
-            test: /\.ttf$/,
             use: [
-              {
-                loader: 'ttf-loader',
-                options: {
-                  name: './font/[hash].[ext]',
-                },
-              },]
-            }]
-    
-    }
-}
+                "style-loader", // creates style nodes from JS strings
+                "css-loader", // translates CSS into CommonJS
+                "sass-loader" // compiles Sass to CSS, using Node Sass by default
+            ]
+        },
+             {
+               test: /\.(png|svg|jpg|gif)$/,
+               use: ['file-loader']
+             },
+             {
+               test: /\.js|.jsx?$/,
+               exclude: /(node_modules)/,
+               loaders: ["babel-loader"]
+             }]
+    },
+};
