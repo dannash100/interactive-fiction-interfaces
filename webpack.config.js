@@ -1,46 +1,53 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: "./index.js",
-    devtool: 'cheap-module-source-map',
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'public')
+  entry: {  index: './src/index.js'
+  },
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [{
+      loader: 'babel-loader',
+      test: /\.js$/,
+      exclude: /node_modules/
+    }, 
+    {
+      test: /\.scss|css$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
     },
-    context: path.resolve(__dirname, 'src'),
-    devServer: {
-        port: 3000,
-        host: 'localhost',
-        //Be possible go back pressing the "back" button at chrome
-        historyApiFallback: true,
-        noInfo: false,
-        stats: 'minimal',
-        publicPath: 'public',
-        contentBase: path.join(__dirname, 'public'),
-        hot: true
+    {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+              publicPath: '/'
+            }   
+          }
+        ]
       },
-      
-    module: {
-        
-        rules: [
-            {
-            test: /\.scss$/,
-            use: [
-                "style-loader", // creates style nodes from JS strings
-                "css-loader", // translates CSS into CommonJS
-                "sass-loader" // compiles Sass to CSS, using Node Sass by default
-            ]
-        },
-             {
-               test: /\.(png|svg|jpg|gif)$/,
-               use: ['file-loader']
-             },
-             {
-               test: /\.js|.jsx?$/,
-               exclude: /(node_modules)/,
-               loaders: ["babel-loader"]
-             }]
-    },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+        ]
+  },
+  devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    contentBase: path.join(__dirname, 'src'),
+    hot: true,
+    historyApiFallback: true,            
+    port: 8080,
+    stats: "errors-only",
+    open: false
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 };
