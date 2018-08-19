@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const EmptyShape = (
   <symbol className="circle" viewBox="0 0 100 100" id="empty">
@@ -11,13 +11,13 @@ const EmptyShape = (
       r="48"
     />
   </symbol>
-);
+)
 
 const SpecialShape = (
   <symbol viewBox="0 0 100 100" id="special">
     <rect transform="translate(50) rotate(45)" width="70" height="70" />
   </symbol>
-);
+)
 
 const SpecialChildShape = (
   <symbol viewBox="0 0 100 100" id="specialChild">
@@ -29,7 +29,7 @@ const SpecialChildShape = (
       fill="rgba(30, 144, 255, 0.12)"
     />
   </symbol>
-);
+)
 
 const EmptyEdgeShape = (
   <symbol viewBox="0 0 50 50" id="emptyEdge">
@@ -37,9 +37,9 @@ const EmptyEdgeShape = (
       {" "}
     </circle>
   </symbol>
-);
+)
 
-const SpecialEdgeShape = <symbol viewBox="0 0 50 50" id="specialEdge" />;
+const SpecialEdgeShape = <symbol viewBox="0 0 50 50" id="specialEdge" />
 
 export default {
   NodeTypes: {
@@ -70,4 +70,4 @@ export default {
       shape: SpecialEdgeShape
     }
   }
-};
+}

@@ -1,14 +1,14 @@
-import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-import { connect } from "react-redux";
-import { fetchScenes } from "../../actions/scenes";
-import { fetchScene } from "../../actions/scene";
+import React from "react"
+import { withStyles } from "@material-ui/core/styles"
+import Drawer from "@material-ui/core/Drawer"
+import Button from "@material-ui/core/Button"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import Divider from "@material-ui/core/Divider"
+import { connect } from "react-redux"
+import { fetchScenes } from "../../actions/scenes"
+import { fetchScene } from "../../actions/scene"
 
 const styles = {
   list: {
@@ -17,12 +17,12 @@ const styles = {
   fullList: {
     width: "auto"
   }
-};
+}
 
 class SceneDisplayBar extends React.Component {
   state = {
     drawer: false
-  };
+  }
 
   toggleDrawer = open => () => {
     this.props.dispatch(fetchScenes())
@@ -36,7 +36,7 @@ class SceneDisplayBar extends React.Component {
   }
 
   render() {
-    const { classes, scenes } = this.props;
+    const { classes, scenes } = this.props
     const sceneList = (
       <div className={classes.list}>
         <List>
@@ -48,11 +48,11 @@ class SceneDisplayBar extends React.Component {
                 </ListItem>
                 <Divider />
               </div>
-            );
+            )
           })}
         </List>
       </div>
-    );
+    )
 
     return (
       <div>
@@ -73,6 +73,6 @@ class SceneDisplayBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => state
 
-export default connect(mapStateToProps)(withStyles(styles)(SceneDisplayBar));
+export default connect(mapStateToProps)(withStyles(styles)(SceneDisplayBar))
