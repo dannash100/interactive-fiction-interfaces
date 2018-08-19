@@ -69,7 +69,7 @@ class SceneDisplayBar extends React.Component {
           </div>
         </Drawer>
       </div>
-    );
+    )
   }
 }
 

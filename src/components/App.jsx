@@ -3,6 +3,7 @@ import Scenes from "./CreateScene/Scenes.jsx";
 import Graph from "./Map/Graph.jsx";
 import { connect } from "react-redux";
 import SceneDisplayBar from "./Navigation/SceneDisplayBar.jsx";
+import SceneView from "./Scene/SceneView.jsx"
 
 const App = props => {
   return (
@@ -15,6 +16,7 @@ const App = props => {
         {props.graph.ready && <Graph />}
       </div>
       <Scenes />
+      {'name' in props.scene && <SceneView />}
     </div>
   );
 };

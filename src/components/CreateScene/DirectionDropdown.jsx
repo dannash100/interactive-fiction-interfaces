@@ -8,10 +8,10 @@ import {toLinkDirection} from "../../actions/create"
 class DirectionDropdown extends React.Component {
   state = {
     anchorEl: null,
-  };
+  }
 
   handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
+    this.setState({ anchorEl: event.currentTarget })
   };
 
   handleClose = (direction, clickType) => {
@@ -52,4 +52,4 @@ class DirectionDropdown extends React.Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps)(DirectionDropdown);
+export default connect(mapStateToProps)(DirectionDropdown)
