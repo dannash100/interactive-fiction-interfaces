@@ -1,8 +1,8 @@
 import React from "react";
-import Scenes from "./CreateScene/Scenes";
-import Graph from "./Map/Graph";
+import Scenes from "./CreateScene/Scenes.jsx";
+import Graph from "./Map/Graph.jsx";
 import { connect } from "react-redux";
-import SceneDisplayBar from "./Navigation/SceneDisplayBar";
+import SceneDisplayBar from "./Navigation/SceneDisplayBar.jsx";
 
 const App = props => {
   return (

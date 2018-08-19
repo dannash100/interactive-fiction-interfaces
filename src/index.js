@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk'
 import reducers from './reducers'
 
-import App from './components/App'
+import App from './components/App.jsx'
 
 
 let store = createStore(reducers, applyMiddleware(thunk))

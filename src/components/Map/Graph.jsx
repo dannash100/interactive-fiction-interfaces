@@ -27,13 +27,16 @@ export class Graph extends React.Component {
       graph: initialStateGraph,
       selected: {}
     };
-    this.state.graph = this.props.graph.graph
+    this.state.graph = this.props.graph.graph;
   }
 
   componentWillReceiveProps(nextProps) {
-    const {nodes, edges} = nextProps.graph.graph
-    if (this.state.graph.edges.length + this.state.graph.nodes.length !== nodes.length + edges.length)
-    this.setState({graph : nextProps.graph.graph})
+    const { nodes, edges } = nextProps.graph.graph;
+    if (
+      this.state.graph.edges.length + this.state.graph.nodes.length !==
+      nodes.length + edges.length
+    )
+      this.setState({ graph: nextProps.graph.graph });
   }
 
   getNodeIndex(searchNode) {

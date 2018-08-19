@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { newScene, fetchScene } from "../../actions/scene";
 import { fetchScenes } from "../../actions/scenes";
 import { fetchGraph } from "../../actions/graph";
-import SceneDropdown from "./SceneDropdown";
-import DirectionDropdown from "./DirectionDropdown";
+import SceneDropdown from "./SceneDropdown.jsx";
+import DirectionDropdown from "./DirectionDropdown.jsx";
 
 class Scenes extends React.Component {
   state = {
