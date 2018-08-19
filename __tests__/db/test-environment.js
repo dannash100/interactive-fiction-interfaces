@@ -7,12 +7,12 @@ module.exports = {
 
   initialise: (db) => {
     return db.migrate.latest()
-      .then(() => {
-        return db.seed.run()
-      })
+    .then(() => {
+      return db.seed.run()
+    })
   },
-
+  
   cleanup: (db) => {
     return db.destroy()
+    }
   }
-}

@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('../server/db');
 const display = require('./display');
 const { moveScene, refreshScene, checkCondition, checkEvent } = require('./gamestate')
 const chalk = require('chalk');
@@ -60,27 +60,24 @@ const interact = {
 
 function processInput(words, scene) {
   return new Promise(resolve => {
-    words = words.toUpperCase().trim()
-    let found = checkGlobal(words)
-    switch (found) {
-      case "quit":
-        display.exit().then(answer => {
-          switch (answer.choice) {
-            case chalk.red("yes"):
-              display.printAnswer("Goodbye")
-              process.exit()
-            case chalk.red("no"):
-              resolve()
-              break
-          }
-        })
-        break
-      case "inventory":
-        display.printInventory()
-        resolve()
-        break
-      case "look":
-        refreshScene()
+        words = words.toUpperCase().trim()
+        let found = checkGlobal(words)
+        switch (found) {
+          case "quit":
+            display.exit().then(answer => {
+              if (answer.choice == chalk.red("yes")) {
+                display.printAnswer("Goodbye")
+                process.exit()
+              } 
+              else resolve()
+            })
+            break
+          case "inventory":
+            display.printInventory()
+            resolve()
+            break
+          case "look":
+            refreshScene()
         resolve()
     }
     if (!found) {
@@ -131,7 +128,7 @@ function checkVerbs(words) {
   for (let command in commands) {
     commands[command].forEach(input => {
       if (words.includes(input.toUpperCase()) && !found) {
-        noun = words.replace(input.toUpperCase(), "").trim()
+        let noun = words.replace(input.toUpperCase(), "").trim()
         found = [noun, command]
       }
     })

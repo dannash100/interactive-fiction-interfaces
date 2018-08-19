@@ -1,8 +1,8 @@
-const db = require('./db')
+const db = require('../server/db')
 const { currentPlayer, checkCondition } = require('./gamestate')
 const { printScene, printError } = require('./display')
 const input = require('./input')
-const inquirer = require('./lib/inquirer')
+const inquirer = require('../lib/inquirer')
 const chalk = require('chalk')
 const clear = require('clear');
 

@@ -1,10 +1,10 @@
 const chalk = require('chalk');
 const figlet = require('figlet');
-const commandLineUsage = require('./lib/command-line-usage');
+const commandLineUsage = require('../lib/command-line-usage');
 const data = require('./gamestate');
 const boxen = require('boxen');
-const inquirer = require('./lib/inquirer')
-const db = require("./db")
+const inquirer = require('../lib/inquirer')
+const db = require("../server/db")
 
 
 var cell = "█"

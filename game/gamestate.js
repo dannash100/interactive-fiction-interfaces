@@ -1,6 +1,6 @@
 const writeJsonFile = require('write-json-file')
 const loadJsonFile = require('load-json-file')
-const db = require('./db')
+const db = require('../server/db')
 
 let currentPlayer = {
   "name": "test",
