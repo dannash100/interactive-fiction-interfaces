@@ -30,14 +30,15 @@ class SceneView extends React.Component {
     return (
       <div className="scene">
         <h2 className="title is-2">{name}</h2>
-        {active == "description" ? (
-          <TextField description={description} />
-        ) : (
-          <div onClick={() => this.toggleEdit("description")}>
-            {description ? (
-              (<h4 className="title is-4">Scene description:</h4>,
-               <h6 className="subtitle">{description}</h6>)
-            ) : <Button>Add description</Button>
+        { active == "description" 
+        ? <TextField description={description} />
+        : (
+          <div className="scene-description" onClick={() => this.toggleEdit("description")}>
+            {
+              description 
+              ? (<h4 className="title is-4">Scene description:</h4>,
+                <h6 className="subtitle">{description}</h6>)
+              : <Button>Add description</Button>
             }
           </div>
         )}
