@@ -4,6 +4,15 @@ import Menu from "@material-ui/core/Menu"
 import MenuItem from "@material-ui/core/MenuItem"
 import { connect } from "react-redux"
 
+/*
+Props :
+options: list of options
+message: subtitle for dropdown
+action: redux action for registering selection
+field: the name in redux store of the property that is being selected
+
+*/
+
 class SelectionDropdown extends React.Component {
   state = {
     anchorEl: null,
@@ -14,15 +23,16 @@ class SelectionDropdown extends React.Component {
   }
 
   handleClose = (option, clickType) => {
+    const { action } = this.props
     if (clickType !== "backdropClick") {
       this.props.dispatch(action(option))
     }
-    this.setState({ anchorEl: null})
+    this.setState({ anchorEl: null })
   }
 
   render() {
     const { anchorEl } = this.state;
-    const { options, message, action, field } = this.props.create;
+    const { options, message, field } = this.props
     return (
       <div className="scene-dropdown">
       <p className="subtitle">{message}</p>

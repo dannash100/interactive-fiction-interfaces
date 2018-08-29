@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
+
 // options, message, action, field - feed to option drop down
 
 class SceneView extends React.Component {
@@ -11,8 +12,9 @@ class SceneView extends React.Component {
     console.log(name, description)
     return (
       <div className="scene">
-      <p className="title is-2">{name}</p>
-      <p className="title is-4">{description}</p>
+      <h2 className="title is-2">{name}</h2>
+      <h4 className="title is-4">Scene description:</h4>
+      <h6 className="subtitle">{description}</h6> 
       </div>
     )
   }
