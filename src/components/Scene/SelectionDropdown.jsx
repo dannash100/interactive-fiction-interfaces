@@ -5,12 +5,11 @@ import MenuItem from "@material-ui/core/MenuItem"
 import { connect } from "react-redux"
 
 /*
-Props :
+Required Props :
 options: list of options
 message: subtitle for dropdown
 action: redux action for registering selection
 field: the name in redux store of the property that is being selected
-
 */
 
 class SelectionDropdown extends React.Component {
