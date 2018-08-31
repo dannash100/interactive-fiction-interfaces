@@ -32,11 +32,14 @@ export class Graph extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { nodes, edges } = nextProps.graph.graph
-    if (
-      this.state.graph.edges.length + this.state.graph.nodes.length !==
-      nodes.length + edges.length
-    )
+    const previousEdges = this.state.graph.edges
+    const previousNodes = this.state.graph.nodes
+    if (previousEdges.length + previousNodes.length !== nodes.length + edges.length) {
       this.setState({ graph: nextProps.graph.graph })
+    }
+    if (this.props.scene.id != nextProps.scene.id) {
+      this.setState({ selected: nodes.find(node => node.id == nextProps.scene.id) })
+    }
   }
 
   getNodeIndex(searchNode) {

@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 
 class SceneView extends React.Component {
   state = {
-    active: ""
+    active: null
   };
   constructor(props) {
     super(props);
@@ -21,7 +21,7 @@ class SceneView extends React.Component {
   }
 
   resetFields() {
-    this.setState({ active: "" });
+    this.setState({ active: null });
   }
 
   render() {
