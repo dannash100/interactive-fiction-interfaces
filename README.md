@@ -1,4 +1,6 @@
-![alt text](https://preview.ibb.co/kba3QU/Screen_Shot_2018_09_14_at_10_06_36_AM.png)
+<p align="center">
+  <a href="https://ibb.co/mcKmep"><img src="https://preview.ibb.co/kba3QU/Screen_Shot_2018_09_14_at_10_06_36_AM.png" alt="Screen Shot 2018 09 14 at 10 06 36 AM" border="0" /></a>
+</p>
 
 # Interactive Fiction
 This project has been a way for me to explore and grow in confidence with full stack javascript development. 
