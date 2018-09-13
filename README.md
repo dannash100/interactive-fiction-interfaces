@@ -11,7 +11,6 @@ currently working on:
 - Concept of object to object interactions, and inspecting inventory objects. 
 - A more object oriented approach to building scenes so that the concept of an object belonging a scene can be more natural and clean. 
 - Moving from SQL to mongoDB and incorporating graphQL.
--
 
 ## Run Command Line Interface
 ```
