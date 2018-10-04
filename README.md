@@ -1,7 +1,6 @@
 <p align="center">
-<a href="https://ibb.co/mcKmep"><img src="https://preview.ibb.co/kba3QU/Screen_Shot_2018_09_14_at_10_06_36_AM.png" alt="Screen_Shot_2018_09_14_at_10_06_36_AM" border="0"></a>
+<a href="https://drive.google.com/uc?export=view&id=1TIQ6_uUJkeBDNwwGrnXZKQT3KmHfcYaO" alt="Screen_Shot_2018_09_14_at_10_06_36_AM" border="0"></a>
 </p>
-
 # Interactive Fiction
 This project has been a way for me to explore and grow in confidence with full stack javascript development. 
 It is inspired by early memories of text-only DOS games, Expecialy "Return to Zork" from which I borrowed the idea of an ASCII map to show navigation options. 
