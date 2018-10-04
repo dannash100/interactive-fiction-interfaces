@@ -1,6 +1,8 @@
 <p align="center">
-<a href="https://drive.google.com/open?id=1TIQ6_uUJkeBDNwwGrnXZKQT3KmHfcYaO" alt="Screen_Shot_2018_09_14_at_10_06_36_AM" border="0"></a>
+<img href="https://i.postimg.cc/GhH4kLgg/Screen_Shot_2018-09-14_at_10.06.36_AM.png" alt="Screen_Shot_2018_09_14_at_10_06_36_AM" border="0"></img>
+<img href="https://i.postimg.cc/sxfhF5c3/Screen_Shot_2018-10-04_at_1.03.48_PM.png" alt="Screen_Shot_2018_09_14_at_10_06_36_AM" border="0"></img>
 </p>
+
 
 # Interactive Fiction
 This project has been a way for me to explore and grow in confidence with full stack javascript development. 
