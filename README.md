@@ -1,6 +1,6 @@
 <p align="center">
-<img href="https://i.postimg.cc/GhH4kLgg/Screen_Shot_2018-09-14_at_10.06.36_AM.png" alt="Screen_Shot_2018_09_14_at_10_06_36_AM" border="0"></img>
-<img href="https://i.postimg.cc/sxfhF5c3/Screen_Shot_2018-10-04_at_1.03.48_PM.png" alt="Screen_Shot_2018_09_14_at_10_06_36_AM" border="0"></img>
+[![Screen_Shot_2018-10-04_at_1.03.48_PM.png](https://i.postimg.cc/sxfhF5c3/Screen_Shot_2018-10-04_at_1.03.48_PM.png)](https://postimg.cc/N9VMm9Sn)
+[![Screen_Shot_2018-09-14_at_10.06.36_AM.png](https://i.postimg.cc/GhH4kLgg/Screen_Shot_2018-09-14_at_10.06.36_AM.png)](https://postimg.cc/2VNjYDDn)
 </p>
 
 
