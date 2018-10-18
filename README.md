@@ -19,7 +19,7 @@ It is inspired by early memories of text-only DOS games, Expecialy "Return to Zo
 ## currently working on:
 - WebApp for making games with personalized design from ground up. 
 - Concept of object to object interactions, and inspecting inventory objects. 
-- A more object oriented approach to building scenes so that the concept of an object belonging a scene can be more natural and clean. 
+- Refactor game code as it is out of date with where I am at. 
 - Moving from SQL to mongoDB and incorporating graphQL.
 
 ## Run Command Line Interface
