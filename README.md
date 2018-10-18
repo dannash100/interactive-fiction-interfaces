@@ -8,6 +8,7 @@
 
 
 # Interactive Fiction
+## Work in Progress
 This project has been a way for me to explore and grow in confidence with full stack javascript development. 
 It is inspired by early memories of text-only DOS games, Expecialy "Return to Zork" from which I borrowed the idea of an ASCII map to show navigation options. 
 
