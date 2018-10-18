@@ -17,6 +17,7 @@ It is inspired by early memories of text-only DOS games, Expecialy "Return to Zo
 - A web-app displays the map of the world, and scenes can be created by compass directions - keeping track of spatial       relations between scenes.
 
 ## currently working on:
+- Electron desktop app
 - WebApp for making games with personalized design from ground up. 
 - Concept of object to object interactions, and inspecting inventory objects. 
 - Refactor game code as it is out of date with where I am at. 
