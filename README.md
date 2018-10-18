@@ -16,8 +16,7 @@ It is inspired by early memories of text-only DOS games, Expecialy "Return to Zo
 - Games are made through a series of arguments and texts stored and read from a database.
 - A web-app displays the map of the world, and scenes can be created by compass directions - keeping track of spatial       relations between scenes.
 
-## Work in Progress
-currently working on:
+## currently working on:
 - WebApp for making games with personalized design from ground up. 
 - Concept of object to object interactions, and inspecting inventory objects. 
 - A more object oriented approach to building scenes so that the concept of an object belonging a scene can be more natural and clean. 
@@ -25,10 +24,12 @@ currently working on:
 
 ## Run Command Line Interface
 ```
+yarn knex migrate:latest
 node game
 ```
 
 ## Run WebApp
 ```
+yarn knex migrate:latest
 yarn start
 ```
